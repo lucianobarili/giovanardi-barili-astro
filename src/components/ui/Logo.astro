@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import logoSrc from "../../assets/images/logo-giovanardi-barili.png";
+import { site } from "../../data/site";
+
+interface Props {
+  size?: "md" | "lg";
+  class?: string;
+}
+
+const { size = "md", class: className } = Astro.props;
+
+const sizeClasses: Record<string, string> = {
+  md: "h-11 w-11",
+  lg: "h-16 w-16",
+};
+
+// Base = tamaño de despliegue real en CSS (44px / 64px), no un valor arbitrario.
+// densities genera el srcset 1x/2x a partir de esa base.
+const displaySize = size === "lg" ? 64 : 44;
+---
+
+<Image
+  src={logoSrc}
+  alt={`Isotipo de ${site.name}`}
+  width={displaySize}
+  height={displaySize}
+  densities={[1, 2]}
+  format="webp"
+  quality={80}
+  class:list={["rounded-lg object-cover", sizeClasses[size], className]}
+/>

@@ -1,0 +1,73 @@
+---
+import Menu from "@lucide/astro/icons/menu";
+import X from "@lucide/astro/icons/x";
+import Nav from "./Nav.astro";
+import Button from "../ui/Button.astro";
+import { site } from "../../data/site";
+---
+
+<div class="md:hidden">
+  <button
+    id="mobile-menu-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="mobile-menu-panel"
+    class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-primary transition-colors hover:bg-surface-alt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+  >
+    <span class="sr-only">Abrir menú</span>
+    <Menu id="mobile-menu-icon-open" class="h-6 w-6" aria-hidden="true" />
+    <X id="mobile-menu-icon-close" class="hidden h-6 w-6" aria-hidden="true" />
+  </button>
+</div>
+
+
+<div
+  id="mobile-menu-panel"
+  class="absolute inset-x-0 top-full hidden border-t border-border bg-surface px-4 pb-6 pt-2 shadow-md md:hidden"
+>
+  <Nav orientation="vertical" />
+  <Button href={site.whatsapp.url} target="_blank" size="lg" class="mt-4 w-full">
+    WhatsApp ahora →
+  </Button>
+</div>
+
+<script>
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const panel = document.getElementById("mobile-menu-panel");
+  const iconOpen = document.getElementById("mobile-menu-icon-open");
+  const iconClose = document.getElementById("mobile-menu-icon-close");
+
+  if (toggle && panel && iconOpen && iconClose) {
+    const closeMenu = () => {
+      panel.classList.add("hidden");
+      iconOpen.classList.remove("hidden");
+      iconClose.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      panel.classList.remove("hidden");
+      iconOpen.classList.add("hidden");
+      iconClose.classList.remove("hidden");
+      toggle.setAttribute("aria-expanded", "true");
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    panel.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+      if (target.tagName === "A") closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+  }
+</script>

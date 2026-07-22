@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces/standard.css";
+@import "@fontsource-variable/inter/wght.css";
+
+@theme {
+  /* Paleta — Verde Profundo + Latón */
+  --color-primary: #16352c;
+  --color-primary-light: #234a3e;
+  --color-accent: #7b622a;
+  --color-accent-soft: #b89a55;
+  --color-surface: #f6f5f1;
+  --color-surface-alt: #edeae3;
+  --color-ink: #1a1c1a;
+  --color-ink-soft: #5f6560;
+  --color-border: #dad8d0;
+
+  /* Tipografía */
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-primary;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}

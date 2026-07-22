@@ -1,0 +1,47 @@
+---
+import Container from "../ui/Container.astro";
+import Heading from "../ui/Heading.astro";
+import Zap from "@lucide/astro/icons/zap";
+import Handshake from "@lucide/astro/icons/handshake";
+import Puzzle from "@lucide/astro/icons/puzzle";
+import Laptop from "@lucide/astro/icons/laptop";
+import { coreDifferentiators, modalityNote } from "../../data/differentiators";
+
+const icons = {
+  zap: Zap,
+  handshake: Handshake,
+  puzzle: Puzzle,
+};
+---
+
+<section class="bg-surface-alt py-16 sm:py-24">
+  <Container>
+    <Heading as="h2" eyebrow="Por qué elegirnos" align="center" class="mx-auto max-w-2xl">
+      La forma moderna de resolver tu asunto legal
+    </Heading>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-3">
+      {
+        coreDifferentiators.map((item) => {
+          const Icon = icons[item.icon];
+          return (
+            <div class="rounded-xl bg-white p-6 text-center shadow-sm">
+              <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft/15 text-accent">
+                <Icon class="h-6 w-6" aria-hidden="true" />
+              </div>
+              <h3 class="font-serif text-lg text-primary">{item.title}</h3>
+              <p class="mt-1 text-sm text-ink-soft">{item.description}</p>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div class="mx-auto mt-8 flex max-w-xl flex-col items-center gap-2 rounded-full border border-border bg-white px-6 py-3 text-center text-sm text-ink-soft sm:flex-row sm:text-left">
+      <Laptop class="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+      <p>
+        <span class="font-semibold text-primary">{modalityNote.title}</span> — {modalityNote.description}
+      </p>
+    </div>
+  </Container>
+</section>

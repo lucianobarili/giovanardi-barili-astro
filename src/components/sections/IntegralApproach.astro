@@ -1,0 +1,37 @@
+---
+import Container from "../ui/Container.astro";
+import Heading from "../ui/Heading.astro";
+import Scale from "@lucide/astro/icons/scale";
+import DraftingCompass from "@lucide/astro/icons/drafting-compass";
+---
+
+<section class="bg-surface-alt py-16 sm:py-24">
+  <Container class="mx-auto max-w-3xl text-center">
+    <div class="mb-6 flex items-center justify-center gap-3 text-accent">
+      <Scale class="h-6 w-6" aria-hidden="true" />
+      <span class="h-px w-10 bg-border"></span>
+      <DraftingCompass class="h-6 w-6" aria-hidden="true" />
+    </div>
+
+    <Heading as="h2" eyebrow="Jurídico + Arquitectónico" align="center" class="mx-auto">
+      Entendemos la norma y el proyecto
+    </Heading>
+
+    <p class="mt-6 text-lg text-ink-soft">
+      Nuestro estudio une dos miradas que casi nunca conviven en un mismo
+      lugar: la mirada legal de Luciano Barili y la mirada arquitectónica de{" "}
+      <a href="#equipo" class="font-semibold text-accent hover:text-primary"
+        >Alcira Giovanardi</a
+      >. Esa combinación nos permite acompañarte en asuntos que cruzan lo
+      jurídico con lo edilicio, algo poco frecuente en un estudio tradicional.
+    </p>
+
+    <p class="mt-4 text-ink-soft">
+      En lo arquitectónico atendemos cualquier consulta, con especialización
+      en patrimonio y en trámites y gestión ante la Municipalidad de General
+      Pueyrredón (MGP) — un servicio local, en Mar del Plata. El
+      asesoramiento jurídico, en cambio, tiene alcance en toda la Provincia
+      de Buenos Aires.
+    </p>
+  </Container>
+</section>

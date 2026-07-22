@@ -1,0 +1,73 @@
+---
+import Container from "../ui/Container.astro";
+import Logo from "../ui/Logo.astro";
+import Nav from "./Nav.astro";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import Mail from "@lucide/astro/icons/mail";
+import MapPin from "@lucide/astro/icons/map-pin";
+import { site } from "../../data/site";
+
+const year = new Date().getFullYear();
+
+const footerLinkClass =
+  "block py-1 text-sm text-surface/80 transition-colors hover:text-accent-soft";
+const contactLinkClass =
+  "flex items-center gap-2 text-sm text-surface/80 transition-colors hover:text-accent-soft";
+---
+
+<footer class="bg-primary text-surface">
+  <Container class="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="space-y-4 lg:col-span-2">
+      <a href="/" class="inline-flex items-center gap-3">
+        <Logo />
+        <span class="font-serif text-lg font-medium text-surface">{site.fullName}</span>
+      </a>
+      <p class="max-w-sm text-sm text-surface/70">{site.matricula}</p>
+
+      {
+        site.social.length > 0 && (
+          <ul class="flex gap-4 pt-2">
+            {site.social.map((item) => (
+              <li>
+                <a href={item.href} class="text-sm text-surface/80 hover:text-accent-soft">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <nav aria-label="Navegación de pie de página">
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-surface/60">
+        Navegación
+      </h2>
+      <Nav orientation="vertical" linkClass={footerLinkClass} />
+    </nav>
+
+    <div>
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-surface/60">Contacto</h2>
+      <div class="space-y-3">
+        <a href={site.whatsapp.url} target="_blank" rel="noopener noreferrer" class={contactLinkClass}>
+          <MessageCircle class="h-4 w-4 shrink-0" aria-hidden="true" />
+          {site.whatsapp.display}
+        </a>
+        <a href={`mailto:${site.email}`} class={contactLinkClass}>
+          <Mail class="h-4 w-4 shrink-0" aria-hidden="true" />
+          {site.email}
+        </a>
+        <p class={contactLinkClass}>
+          <MapPin class="h-4 w-4 shrink-0" aria-hidden="true" />
+          {site.location.city} · {site.location.serviceArea}
+        </p>
+      </div>
+    </div>
+  </Container>
+
+  <div class="border-t border-surface/10">
+    <Container class="flex flex-col items-center justify-between gap-2 py-6 text-xs text-surface/60 sm:flex-row">
+      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+    </Container>
+  </div>
+</footer>

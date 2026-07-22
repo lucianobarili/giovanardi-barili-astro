@@ -1,0 +1,154 @@
+---
+import Container from "../ui/Container.astro";
+import Heading from "../ui/Heading.astro";
+import Button from "../ui/Button.astro";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import Mail from "@lucide/astro/icons/mail";
+import MapPin from "@lucide/astro/icons/map-pin";
+import { site } from "../../data/site";
+
+const formEndpoint = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_FORM_ID ?? ""}`;
+
+const inputClass =
+  "w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+
+const contactCards = [
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: site.whatsapp.display,
+    href: site.whatsapp.url,
+    external: true,
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: site.email,
+    href: `mailto:${site.email}`,
+    external: false,
+  },
+];
+---
+
+<section id="contacto" class="scroll-mt-24 bg-surface-alt py-16 sm:py-24">
+  <Container>
+    <Heading as="h2" eyebrow="Contacto" align="center" class="mx-auto max-w-2xl">
+      Empecemos a resolverlo
+    </Heading>
+    <p class="mx-auto mt-4 max-w-xl text-center text-ink-soft">
+      Contanos tu situación, te respondemos a la brevedad.
+    </p>
+
+    <div class="mx-auto mt-12 grid max-w-4xl gap-8 lg:grid-cols-5">
+      <form
+        id="contact-form"
+        class="space-y-4 rounded-2xl bg-white p-6 shadow-sm lg:col-span-3 lg:p-8"
+        data-formspree-endpoint={formEndpoint}
+      >
+        <div>
+          <label for="name" class="mb-1 block text-sm font-medium text-primary">Nombre</label>
+          <input id="name" name="name" type="text" required autocomplete="name" class={inputClass} />
+        </div>
+        <div>
+          <label for="email" class="mb-1 block text-sm font-medium text-primary">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" class={inputClass} />
+        </div>
+        <div>
+          <label for="phone" class="mb-1 block text-sm font-medium text-primary">
+            Teléfono <span class="font-normal text-ink-soft">(opcional)</span>
+          </label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" class={inputClass} />
+        </div>
+        <div>
+          <label for="message" class="mb-1 block text-sm font-medium text-primary">Mensaje</label>
+          <textarea id="message" name="message" rows="4" required class={inputClass}></textarea>
+        </div>
+
+        <Button type="submit" size="lg" class="w-full">Enviar</Button>
+
+        <p id="contact-form-status" role="status" aria-live="polite" class="min-h-5 text-sm"></p>
+      </form>
+
+      <div class="space-y-4 lg:col-span-2">
+        {
+          contactCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <a
+                href={card.href}
+                target={card.external ? "_blank" : undefined}
+                rel={card.external ? "noopener noreferrer" : undefined}
+                class="flex items-center gap-3 rounded-xl bg-white p-5 shadow-sm transition-colors hover:bg-accent-soft/10"
+              >
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft/15 text-accent">
+                  <Icon class="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span>
+                  <span class="block text-sm font-semibold text-primary">{card.label}</span>
+                  <span class="block text-sm text-ink-soft">{card.value}</span>
+                </span>
+              </a>
+            );
+          })
+        }
+
+        <div class="flex items-center gap-3 rounded-xl bg-white p-5 shadow-sm">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft/15 text-accent">
+            <MapPin class="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span>
+            <span class="block text-sm font-semibold text-primary">Ubicación</span>
+            <span class="block text-sm text-ink-soft">
+              {site.location.city} · {site.location.serviceArea}
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const status = document.getElementById("contact-form-status");
+
+  if (form && status) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const endpoint = form.dataset.formspreeEndpoint;
+      const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+      if (!endpoint || endpoint.endsWith("/f/")) {
+        status.textContent = "El formulario todavía no está conectado. Escribinos por WhatsApp mientras tanto.";
+        status.className = "min-h-5 text-sm text-accent";
+        return;
+      }
+
+      if (submitButton) submitButton.disabled = true;
+      status.textContent = "Enviando...";
+      status.className = "min-h-5 text-sm text-ink-soft";
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.ok) {
+          status.textContent = "¡Gracias! Te vamos a responder a la brevedad.";
+          status.className = "min-h-5 text-sm text-primary";
+          form.reset();
+        } else {
+          status.textContent = "Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.";
+          status.className = "min-h-5 text-sm text-accent";
+        }
+      } catch {
+        status.textContent = "Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.";
+        status.className = "min-h-5 text-sm text-accent";
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
+    });
+  }
+</script>

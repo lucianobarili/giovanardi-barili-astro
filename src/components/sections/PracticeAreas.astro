@@ -1,0 +1,52 @@
+---
+import Container from "../ui/Container.astro";
+import Heading from "../ui/Heading.astro";
+import Card from "../ui/Card.astro";
+import Building2 from "@lucide/astro/icons/building-2";
+import Signature from "@lucide/astro/icons/signature";
+import Users from "@lucide/astro/icons/users";
+import Gavel from "@lucide/astro/icons/gavel";
+import Landmark from "@lucide/astro/icons/landmark";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import { practiceAreas } from "../../data/practiceAreas";
+
+const icons = {
+  "building-2": Building2,
+  signature: Signature,
+  users: Users,
+  gavel: Gavel,
+  landmark: Landmark,
+};
+---
+
+<section id="areas" class="scroll-mt-24 bg-surface py-16 sm:py-24">
+  <Container>
+    <Heading as="h2" eyebrow="Qué hacemos" align="center" class="mx-auto max-w-2xl">
+      Áreas de práctica
+    </Heading>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        practiceAreas.map((area) => {
+          const Icon = icons[area.icon];
+          return (
+            <Card hoverable as="article" class="flex flex-col">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft/15 text-accent">
+                <Icon class="h-6 w-6" aria-hidden="true" />
+              </div>
+              <h3 class="font-serif text-xl text-primary">{area.title}</h3>
+              <p class="mt-2 flex-1 text-sm text-ink-soft">{area.description}</p>
+              <a
+                href={area.href}
+                class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent transition-colors hover:text-primary"
+              >
+                Ver más
+                <ArrowRight class="h-4 w-4" aria-hidden="true" />
+              </a>
+            </Card>
+          );
+        })
+      }
+    </div>
+  </Container>
+</section>

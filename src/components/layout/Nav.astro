@@ -1,0 +1,29 @@
+---
+import { navItems } from "../../data/site";
+
+interface Props {
+  orientation?: "horizontal" | "vertical";
+  class?: string;
+  linkClass?: string;
+}
+
+const { orientation = "horizontal", class: className, linkClass } = Astro.props;
+
+const isHorizontal = orientation === "horizontal";
+
+const defaultLinkClass = isHorizontal
+  ? "text-sm font-medium text-primary transition-colors hover:text-accent"
+  : "block rounded-lg px-3 py-3 text-base font-medium text-primary transition-colors hover:bg-surface-alt hover:text-accent";
+---
+
+<ul class:list={[isHorizontal ? "flex items-center gap-8" : "flex flex-col gap-1", className]}>
+  {
+    navItems.map((item) => (
+      <li>
+        <a href={item.href} class:list={[linkClass ?? defaultLinkClass]}>
+          {item.label}
+        </a>
+      </li>
+    ))
+  }
+</ul>
