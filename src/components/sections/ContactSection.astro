@@ -5,7 +5,16 @@ import Button from "../ui/Button.astro";
 import MessageCircle from "@lucide/astro/icons/message-circle";
 import Mail from "@lucide/astro/icons/mail";
 import MapPin from "@lucide/astro/icons/map-pin";
-import { site } from "../../data/site";
+import { site, getWhatsAppUrl } from "../../data/site";
+
+interface Props {
+  // "h1" cuando la sección es el contenido principal de una página propia
+  // (/contacto). "h2" (default) cuando vive como sección dentro de otra
+  // página (Home).
+  headingLevel?: "h1" | "h2";
+}
+
+const { headingLevel = "h2" } = Astro.props;
 
 const formEndpoint = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_FORM_ID ?? ""}`;
 
@@ -17,7 +26,7 @@ const contactCards = [
     icon: MessageCircle,
     label: "WhatsApp",
     value: site.whatsapp.display,
-    href: site.whatsapp.url,
+    href: getWhatsAppUrl(),
     external: true,
   },
   {
@@ -32,7 +41,7 @@ const contactCards = [
 
 <section id="contacto" class="scroll-mt-24 bg-surface-alt py-16 sm:py-24">
   <Container>
-    <Heading as="h2" eyebrow="Contacto" align="center" class="mx-auto max-w-2xl">
+    <Heading as={headingLevel} eyebrow="Contacto" align="center" class="mx-auto max-w-2xl">
       Empecemos a resolverlo
     </Heading>
     <p class="mx-auto mt-4 max-w-xl text-center text-ink-soft">
