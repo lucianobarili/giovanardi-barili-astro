@@ -1,0 +1,44 @@
+{
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "statusCode": 301 },
+    { "source": "/areas.html", "destination": "/#areas", "statusCode": 301 },
+    { "source": "/nosotros.html", "destination": "/nosotros", "statusCode": 301 },
+    { "source": "/publicaciones.html", "destination": "/publicaciones", "statusCode": 301 },
+    { "source": "/gracias.html", "destination": "/contacto", "statusCode": 301 },
+    {
+      "source": "/docs/Modelo_Contrato_Locacion_Comercial.pdf",
+      "destination": "/areas/contratos",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs/Modelo_Contrato_Mutuo.pdf",
+      "destination": "/areas/contratos",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs/Modelo_Reconocimiento_Deuda.pdf",
+      "destination": "/areas/contratos",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs/AcuerdoTransaccional.pdf",
+      "destination": "/areas/contratos",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs/AcuerdoTransaccional.docx",
+      "destination": "/areas/contratos",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs/Convenio_Particion.pdf",
+      "destination": "/areas/sucesiones",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs/TESINA_Sociedad_Anonima_Familiar.pdf",
+      "destination": "/nosotros",
+      "statusCode": 301
+    }
+  ]
+}
