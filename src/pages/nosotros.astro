@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Heading from "../components/ui/Heading.astro";
+import Button from "../components/ui/Button.astro";
+import Avatar from "../components/ui/Avatar.astro";
+import RichText from "../components/ui/RichText.astro";
+import { getWhatsAppUrl, site } from "../data/site";
+
+const introParagraphs = [
+  "Giovanardi Barili es un estudio jurídico y una consultora que reúne dos formaciones que rara vez trabajan juntas: el derecho privado y la arquitectura.",
+  "No es una casualidad de familia convertida en argumento de venta. Es una sociedad entre una arquitecta que pasó años del lado del Estado evaluando y aprobando obras, y un abogado formado en derecho empresario que dedicó su carrera a la instrumentación de negocios y a la resolución de conflictos patrimoniales.",
+  "Cuando un problema tiene las dos caras —y en materia inmobiliaria, urbanística y patrimonial casi siempre las tiene— no hay que coordinar dos estudios que no se conocen. Está resuelto en el mismo lugar.",
+];
+
+// TODO (Luciano, opcional): si querés sumar un párrafo personal sobre por qué
+// elegiste el derecho privado, va como quinto elemento acá. Suma — la gente
+// contrata personas, no currículums. No es necesario para publicar.
+const lucianoBio = [
+  "Se recibió de abogado en la Facultad de Derecho de la Universidad Nacional de Mar del Plata en 2013 y completó su Máster en Derecho Empresario en la Universidad Austral de Buenos Aires.",
+  "Durante más de una década se formó y ejerció en el estudio de los Dres. Marcelo y Juan Carlos Abal, uno de los estudios jurídicos de mayor trayectoria de Mar del Plata, donde intervino en litigios de todas las materias del derecho privado: sucesiones, contratos, conflictos societarios, desalojos, daños y cuestiones patrimoniales de familia. Desde 2023 ejerce de manera independiente.",
+  "Su práctica combina dos costados que no siempre van juntos. Por un lado, el litigio: años de tribunales, con la lectura de cuándo un caso se pelea y cuándo se negocia. Por el otro, el asesoramiento preventivo: la formación en derecho empresario lo llevó a trabajar con empresarios y pymes en la instrumentación jurídica de sus operaciones —contratos de distribución, fideicomisos, transferencias de fondo de comercio, estructuras societarias— para que el negocio que existe en los hechos tenga el andamiaje legal que lo sostenga.",
+  "Esa doble experiencia define cómo trabaja: quien litigó durante años sabe exactamente por dónde se rompen los contratos, y escribe distinto por haberlo visto.",
+];
+
+// TODO (Alcira, vía Luciano): faltan estos datos para completar la bio —
+// - Matrícula CAAPBA (se muestra junto al nombre, como con Luciano).
+// - Años exactos de gestión como Directora de Obras Privadas (hoy dice "durante
+//   muchos años"; ajustar si corresponde precisar).
+// - Dónde y cuándo se recibió de arquitecta (hoy no se menciona formación).
+// - Rol exacto en la fundación de la escuela UOCRA / Centro de Formación
+//   Laboral N° 407: se sacó ese párrafo del sitio porque la afirmación
+//   "impulsó la creación" no está verificada. Confirmar con Alcira antes de
+//   volver a publicarlo.
+const alciraBio = [
+  "Arquitecta. Fue **Directora de Obras Privadas de la Municipalidad de General Pueyrredón** durante muchos años, a cargo del estudio y la aprobación de buena parte de las obras de mayor escala que se construyeron en la ciudad durante ese período.",
+  "Su trabajo no se limitó a aplicar la normativa: participó en la redacción de ordenanzas y decretos municipales —varios de ellos aún vigentes— en materia de seguridad e higiene y de protección de las condiciones de trabajo de los obreros de la construcción.",
+  "Hoy aplica esa trayectoria del otro lado del mostrador: preparar expedientes que cumplen el estándar con el que ella misma evaluó durante años, y asesorar en normativa urbanística, regularizaciones, habilitaciones y patrimonio arquitectónico.",
+];
+
+const howWeWork = [
+  "**Respondemos rápido.** Una consulta que espera cinco días para ser respondida ya perdió la mitad de su valor. Contestamos en el día.",
+  "**Hablamos claro.** Te explicamos qué se puede hacer, qué no y cuánto puede tardar, en castellano. Si tu caso es difícil, te lo decimos al principio.",
+  "**Trabajamos online.** Videollamada, WhatsApp y documentación digital. Atendemos en toda la Provincia de Buenos Aires sin que tengas que trasladarte. Si preferís vernos en persona en Mar del Plata, también.",
+  "**Somos un estudio chico, a propósito.** Tu caso lo lleva quien lo consultó, no un pasante. Eso limita cuántos casos tomamos y es una decisión deliberada.",
+  "**Y cuando no somos nosotros, te decimos quién.** No tomamos derecho penal, laboral ni previsional. Para esas materias trabajamos con especialistas de confianza a quienes derivamos directamente. Preferimos eso a tomar un caso que otro va a hacer mejor.",
+  "**Consultar no compromete a nada.** Si podemos ayudarte, te lo decimos; si no, también.",
+];
+---
+
+<BaseLayout
+  title="Quiénes somos"
+  description="Estudio jurídico y consultora en Mar del Plata. Luciano Barili, abogado especialista en derecho privado y empresario. Alcira Giovanardi, arquitecta, ex Directora de Obras Privadas de la MGP."
+>
+  <section class="py-20 sm:py-28">
+    <Container class="mx-auto max-w-[65ch] text-center">
+      <Heading as="h1" align="center" class="mx-auto">Dos profesiones, un mismo criterio</Heading>
+      <div class="mx-auto mt-6 max-w-[58ch] space-y-4 text-lg text-ink-soft">
+        {
+          introParagraphs.map((paragraph) => (
+            <p>
+              <RichText text={paragraph} />
+            </p>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <section id="luciano" class="border-t border-border bg-surface-alt py-16 sm:py-20">
+    <Container class="mx-auto max-w-[65ch]">
+      <div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
+        <Avatar name="Luciano Barili" tone="primary" size="lg" class="shrink-0" />
+        <div>
+          <h2 class="font-serif text-2xl text-primary">Luciano Barili</h2>
+          <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-accent">Abogado</p>
+          <p class="mt-1 text-sm text-ink-soft">{site.matricula}</p>
+        </div>
+      </div>
+
+      <div class="mt-8 space-y-4 text-ink-soft">
+        {
+          lucianoBio.map((paragraph) => (
+            <p>
+              <RichText text={paragraph} class="[&_strong]:text-primary" />
+            </p>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <section id="alcira" class="border-t border-border py-16 sm:py-20">
+    <Container class="mx-auto max-w-[65ch]">
+      <div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
+        <Avatar name="Alcira Giovanardi" tone="accent" size="lg" class="shrink-0" />
+        <div>
+          <h2 class="font-serif text-2xl text-primary">Alcira Giovanardi</h2>
+          <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-accent">Arquitecta</p>
+        </div>
+      </div>
+
+      <div class="mt-8 space-y-4 text-ink-soft">
+        {
+          alciraBio.map((paragraph) => (
+            <p>
+              <RichText text={paragraph} class="[&_strong]:text-primary" />
+            </p>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <section class="border-t border-border bg-surface-alt py-16 sm:py-20">
+    <Container class="mx-auto max-w-[65ch]">
+      <Heading as="h2" align="center" class="mx-auto">Cómo trabajamos</Heading>
+      <ul class="mt-8 space-y-5">
+        {
+          howWeWork.map((item) => (
+            <li class="text-ink-soft">
+              <RichText text={item} class="[&_strong]:text-primary" />
+            </li>
+          ))
+        }
+      </ul>
+    </Container>
+  </section>
+
+  <section class="py-16 text-center sm:py-24">
+    <Container>
+      <Heading as="h2" align="center" class="mx-auto max-w-2xl">Contanos tu caso</Heading>
+      <div class="mt-6 flex justify-center">
+        <Button href={getWhatsAppUrl()} target="_blank" size="lg">WhatsApp ahora →</Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
