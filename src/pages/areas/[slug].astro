@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/ui/Container.astro";
+import Heading from "../../components/ui/Heading.astro";
+import Button from "../../components/ui/Button.astro";
+import RichText from "../../components/ui/RichText.astro";
+import JsonLd from "../../components/seo/JsonLd.astro";
+import { areas, type Area } from "../../data/areas";
+import { getWhatsAppUrl } from "../../data/site";
+
+export function getStaticPaths() {
+  return areas.map((area) => ({
+    params: { slug: area.slug },
+    props: { area },
+  }));
+}
+
+interface Props {
+  area: Area;
+}
+
+const { area } = Astro.props;
+
+// BaseLayout ya agrega " · Giovanardi Barili" al título — evita duplicarlo.
+const pageTitle = area.seoTitle.split(" | ")[0];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: area.faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer.replace(/\*\*/g, "") },
+  })),
+};
+---
+
+<BaseLayout title={pageTitle} description={area.seoDescription}>
+  <JsonLd data={faqJsonLd} />
+
+  <section class="py-20 sm:py-28">
+    <Container class="mx-auto max-w-[65ch] text-center">
+      <Heading as="h1" align="center" class="mx-auto">
+        {area.h1}
+      </Heading>
+      <div class="mx-auto mt-6 max-w-[55ch] space-y-4 text-lg text-ink-soft">
+        {
+          area.intro.map((paragraph) => (
+            <p>
+              <RichText text={paragraph} />
+            </p>
+          ))
+        }
+      </div>
+      <div class="mt-8 flex justify-center">
+        <Button href={getWhatsAppUrl(area.whatsappMessage)} target="_blank" size="lg">
+          WhatsApp ahora →
+        </Button>
+      </div>
+    </Container>
+  </section>
+
+  <section class="border-t border-border bg-surface-alt py-16 sm:py-20">
+    <Container class="mx-auto max-w-[70ch]">
+      <Heading as="h2">{area.solves.heading}</Heading>
+      <ul class="mt-6 space-y-3">
+        {
+          area.solves.items.map((item) => (
+            <li class="flex gap-3">
+              <span
+                class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                aria-hidden="true"
+              />
+              <RichText text={item} class="text-ink-soft [&_strong]:text-primary" />
+            </li>
+          ))
+        }
+      </ul>
+    </Container>
+  </section>
+
+  {
+    area.sections.map((section) => (
+      <section class="border-t border-border py-16 sm:py-20">
+        <Container class="mx-auto max-w-[70ch]">
+          <Heading as="h2">{section.heading}</Heading>
+          {section.paragraphs && (
+            <div class="mt-6 space-y-4 text-ink-soft">
+              {section.paragraphs.map((paragraph) => (
+                <p>
+                  <RichText text={paragraph} class="[&_strong]:text-primary" />
+                </p>
+              ))}
+            </div>
+          )}
+          {section.list &&
+            (section.listIntro && (
+              <p class="mt-6 font-medium text-primary">{section.listIntro}</p>
+            ))}
+          {section.list && section.ordered && (
+            <ol class="mt-4 list-decimal space-y-3 pl-5 text-ink-soft">
+              {section.list.map((item) => (
+                <li>
+                  <RichText text={item} class="[&_strong]:text-primary" />
+                </li>
+              ))}
+            </ol>
+          )}
+          {section.list && !section.ordered && (
+            <ul class="mt-4 space-y-3">
+              {section.list.map((item) => (
+                <li class="flex gap-3">
+                  <span
+                    class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                    aria-hidden="true"
+                  />
+                  <RichText text={item} class="text-ink-soft [&_strong]:text-primary" />
+                </li>
+              ))}
+            </ul>
+          )}
+        </Container>
+      </section>
+    ))
+  }
+
+  <section class="border-t border-border bg-surface-alt py-16 sm:py-20">
+    <Container class="mx-auto max-w-[70ch]">
+      <Heading as="h2">Preguntas frecuentes</Heading>
+      <div class="mt-6 divide-y divide-border">
+        {
+          area.faq.map((item) => (
+            <div class="py-5 first:pt-0">
+              <h3 class="font-serif text-lg text-primary">{item.question}</h3>
+              <p class="mt-2 text-ink-soft">
+                <RichText text={item.answer} />
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-16 text-center sm:py-24">
+    <Container>
+      <Heading as="h2" align="center" class="mx-auto max-w-2xl">
+        {area.ctaLabel}
+      </Heading>
+      <div class="mt-6 flex justify-center">
+        <Button href={getWhatsAppUrl(area.whatsappMessage)} target="_blank" size="lg">
+          WhatsApp ahora →
+        </Button>
+      </div>
+      <p class="mx-auto mt-4 max-w-md text-sm text-ink-soft">
+        Consultar no compromete a nada. Si podemos ayudarte, te lo decimos; si no, también.
+      </p>
+    </Container>
+  </section>
+</BaseLayout>
