@@ -5,7 +5,7 @@ export const site = {
   whatsapp: {
     number: "5492236236159",
     display: "+54 9 223 623-6159",
-    url: "https://wa.me/5492236236159",
+    defaultMessage: "Hola, quisiera hacer una consulta legal.",
   },
   // TODO: reemplazar por email @estudiogiovanardibarili.com cuando exista.
   email: "luciano.barili@gmail.com",
@@ -17,10 +17,19 @@ export const site = {
   social: [] as { label: string; href: string }[],
 };
 
+/**
+ * Link de WhatsApp con mensaje precargado. Cada página/sección puede pasar
+ * su propio mensaje (ej. una landing de área: "Hola, quisiera consultar por
+ * una sucesión.") para tener atribución de qué área generó cada consulta.
+ */
+export function getWhatsAppUrl(message: string = site.whatsapp.defaultMessage): string {
+  return `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(message)}`;
+}
+
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "Áreas", href: "/#areas" },
-  { label: "Nosotros", href: "/#equipo" },
+  { label: "Nosotros", href: "/nosotros" },
   { label: "Publicaciones", href: "/publicaciones" },
-  { label: "Contacto", href: "/#contacto" },
+  { label: "Contacto", href: "/contacto" },
 ];
