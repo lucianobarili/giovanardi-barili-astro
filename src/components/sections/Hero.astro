@@ -2,7 +2,7 @@
 import Container from "../ui/Container.astro";
 import Heading from "../ui/Heading.astro";
 import Button from "../ui/Button.astro";
-import { site } from "../../data/site";
+import { getWhatsAppUrl } from "../../data/site";
 
 const trustPoints = [
   "13+ años de experiencia",
@@ -11,53 +11,35 @@ const trustPoints = [
 ];
 ---
 
-<section class="overflow-hidden py-16 sm:py-20 lg:py-28">
-  <Container class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-    <div>
-      <Heading as="h1" eyebrow="Estudio Jurídico · Mar del Plata">
-        Asesoramiento legal ágil, confiable y sin vueltas
-      </Heading>
+<section class="py-24 sm:py-32">
+  <Container class="mx-auto max-w-[65ch] text-center">
+    <Heading as="h1" eyebrow="Estudio Jurídico · Mar del Plata" align="center" class="mx-auto">
+      Asesoramiento legal ágil, confiable y sin vueltas
+    </Heading>
 
-      <p class="mt-6 max-w-xl text-lg text-ink-soft">
-        Un estudio que combina derecho privado y arquitectura. Resolvemos tus
-        asuntos societarios, contractuales y patrimoniales en toda la
-        Provincia de Buenos Aires, con respuesta inmediata y asesoría 100%
-        online.
-      </p>
+    <p class="mx-auto mt-6 max-w-[55ch] text-lg text-ink-soft">
+      Un estudio que combina derecho privado y arquitectura. Resolvemos tus
+      asuntos societarios, contractuales y patrimoniales en toda la
+      Provincia de Buenos Aires, con respuesta inmediata y asesoría 100%
+      online.
+    </p>
 
-      <div class="mt-8 flex flex-wrap gap-4">
-        <Button href={site.whatsapp.url} target="_blank" size="lg">
-          WhatsApp ahora →
-        </Button>
-        <Button href="#areas" variant="secondary" size="lg">Ver áreas</Button>
-      </div>
-
-      <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
-        {
-          trustPoints.map((point) => (
-            <li class="flex items-center gap-2">
-              <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-              {point}
-            </li>
-          ))
-        }
-      </ul>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <Button href={getWhatsAppUrl()} target="_blank" size="lg">
+        WhatsApp ahora →
+      </Button>
+      <Button href="#areas" variant="secondary" size="lg">Ver áreas</Button>
     </div>
 
-    <div class="relative mx-auto aspect-square w-full max-w-md lg:max-w-none" aria-hidden="true">
-      <div class="absolute inset-0 overflow-hidden rounded-3xl bg-primary">
-        <svg class="absolute inset-0 h-full w-full text-surface opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="hero-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#hero-grid)" />
-        </svg>
-        <div class="absolute -right-12 -top-12 h-56 w-56 rounded-full border border-accent-soft/40"></div>
-        <div class="absolute bottom-10 left-10 h-32 w-32 rounded-full bg-accent-soft/20"></div>
-        <div class="absolute bottom-16 left-16 h-16 w-16 rounded-full border border-accent-soft/50"></div>
-      </div>
-    </div>
+    <ul class="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
+      {
+        trustPoints.map((point) => (
+          <li class="flex items-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+            {point}
+          </li>
+        ))
+      }
+    </ul>
   </Container>
 </section>
