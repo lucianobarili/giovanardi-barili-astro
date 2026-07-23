@@ -1,11 +1,11 @@
 ---
 import Container from "../ui/Container.astro";
-import Logo from "../ui/Logo.astro";
+import Wordmark from "../ui/Wordmark.astro";
 import Nav from "./Nav.astro";
 import MessageCircle from "@lucide/astro/icons/message-circle";
 import Mail from "@lucide/astro/icons/mail";
 import MapPin from "@lucide/astro/icons/map-pin";
-import { site } from "../../data/site";
+import { site, getWhatsAppUrl } from "../../data/site";
 
 const year = new Date().getFullYear();
 
@@ -18,9 +18,8 @@ const contactLinkClass =
 <footer class="bg-primary text-surface">
   <Container class="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
     <div class="space-y-4 lg:col-span-2">
-      <a href="/" class="inline-flex items-center gap-3">
-        <Logo />
-        <span class="font-serif text-lg font-medium text-surface">{site.fullName}</span>
+      <a href="/" class="inline-block">
+        <Wordmark tone="dark" />
       </a>
       <p class="max-w-sm text-sm text-surface/70">{site.matricula}</p>
 
@@ -49,7 +48,7 @@ const contactLinkClass =
     <div>
       <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-surface/60">Contacto</h2>
       <div class="space-y-3">
-        <a href={site.whatsapp.url} target="_blank" rel="noopener noreferrer" class={contactLinkClass}>
+        <a href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" class={contactLinkClass}>
           <MessageCircle class="h-4 w-4 shrink-0" aria-hidden="true" />
           {site.whatsapp.display}
         </a>

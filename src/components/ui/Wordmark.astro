@@ -1,0 +1,22 @@
+---
+import { site } from "../../data/site";
+
+interface Props {
+  tone?: "light" | "dark";
+  class?: string;
+}
+
+const { tone = "light", class: className } = Astro.props;
+
+const nameClass = tone === "light" ? "text-primary" : "text-surface";
+const taglineClass = tone === "light" ? "text-ink-soft" : "text-surface/70";
+---
+
+<span class:list={["flex flex-col leading-tight", className]}>
+  <span class:list={["font-serif text-xl font-medium tracking-tight sm:text-2xl", nameClass]}>
+    {site.name}
+  </span>
+  <span class:list={["text-[11px] font-medium uppercase tracking-wide sm:text-xs", taglineClass]}>
+    Abogados · Consultora
+  </span>
+</span>
