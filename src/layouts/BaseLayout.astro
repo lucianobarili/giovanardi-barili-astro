@@ -37,15 +37,13 @@ const jsonLd = {
       image: ogImageURL,
       telephone: `+${site.whatsapp.number}`,
       email: site.email,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: site.location.city,
-        addressRegion: "Buenos Aires",
-        addressCountry: "AR",
-      },
+      // Sin "address": el estudio no tiene oficina física con atención al
+      // público, opera como negocio de área de servicio. Declarar una
+      // PostalAddress sin local real es un riesgo para Google Business
+      // Profile y para la credibilidad del schema. areaServed alcanza.
       areaServed: {
         "@type": "AdministrativeArea",
-        name: site.location.serviceArea,
+        name: "Provincia de Buenos Aires",
       },
     },
     {

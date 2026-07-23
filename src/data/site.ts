@@ -9,9 +9,11 @@ export const site = {
   },
   // TODO: reemplazar por email @estudiogiovanardibarili.com cuando exista.
   email: "luciano.barili@gmail.com",
+  // Sin dirección de calle a propósito: el estudio no tiene oficina física
+  // con atención al público, opera como negocio de área de servicio.
   location: {
     city: "Mar del Plata",
-    serviceArea: "Toda la Provincia de Buenos Aires",
+    serviceArea: "toda la Provincia de Buenos Aires",
   },
   matricula: "T° XVI F° 99 — Colegio de Abogados de Mar del Plata (CAMDP)",
   social: [] as { label: string; href: string }[],
