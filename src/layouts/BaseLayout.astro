@@ -18,6 +18,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL("/og-image.jpg", Astro.site);
 const pageTitle = `${title} · ${site.name}`;
 
+// Fail-safe: sin PUBLIC_ALLOW_INDEXING=true seteado explícitamente (recién en
+// el cutover de Fase 3), el sitio se sirve con noindex. Evita que el dominio
+// .vercel.app se indexe mientras estudiogiovanardibarili.com sigue vivo.
+const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === "true";
+
 const organizationId = `${Astro.site}#organization`;
 
 const jsonLd = {
@@ -70,6 +75,7 @@ const jsonLd = {
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content={allowIndexing ? "index, follow" : "noindex, nofollow"} />
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://giovanardi-barili-astro.vercel.app/sitemap-index.xml
