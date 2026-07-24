@@ -23,19 +23,63 @@ const lucianoBio = [
   "Esa doble experiencia define cómo trabaja: quien litigó durante años sabe exactamente por dónde se rompen los contratos, y escribe distinto por haberlo visto.",
 ];
 
-// TODO (Alcira, vía Luciano): faltan estos datos para completar la bio —
+const alciraIntro =
+  "Arquitecta. Su trayectoria combina la gestión pública en el área de obras y planeamiento urbano, la producción normativa municipal, la docencia universitaria y la formación profesional de trabajadores de la construcción.";
+
+// TODO (Alcira, vía Luciano) — pendiente para completar antes de dar esto por
+// definitivo:
 // - Matrícula CAAPBA (se muestra junto al nombre, como con Luciano).
-// - Años exactos de gestión como Directora de Obras Privadas (hoy dice "durante
-//   muchos años"; ajustar si corresponde precisar).
-// - Dónde y cuándo se recibió de arquitecta (hoy no se menciona formación).
-// - Rol exacto en la fundación de la escuela UOCRA / Centro de Formación
-//   Laboral N° 407: se sacó ese párrafo del sitio porque la afirmación
-//   "impulsó la creación" no está verificada. Confirmar con Alcira antes de
-//   volver a publicarlo.
-const alciraBio = [
-  "Arquitecta. Fue **Directora de Obras Privadas de la Municipalidad de General Pueyrredón** durante muchos años, a cargo del estudio y la aprobación de buena parte de las obras de mayor escala que se construyeron en la ciudad durante ese período.",
-  "Su trabajo no se limitó a aplicar la normativa: participó en la redacción de ordenanzas y decretos municipales —varios de ellos aún vigentes— en materia de seguridad e higiene y de protección de las condiciones de trabajo de los obreros de la construcción.",
-  "Hoy aplica esa trayectoria del otro lado del mostrador: preparar expedientes que cumplen el estándar con el que ella misma evaluó durante años, y asesorar en normativa urbanística, regularizaciones, habilitaciones y patrimonio arquitectónico.",
+// - Período de cada cargo listado abajo (ella misma señaló que faltan). No se
+//   inventan fechas: los ítems se publican sin período hasta tenerlo.
+// - Año y casa de estudios del título de grado (hoy no se menciona formación).
+//
+// Nota sobre "Miembro de la Comisión de Excepciones (Decreto 50/96)": queda
+// incluida tal como la envió Alcira, pero su publicación pública sigue siendo
+// una decisión abierta entre Luciano y Alcira — es la credencial con más
+// lectura posible de "acceso/influencia" junto a un servicio de gestión de
+// expedientes (/consultoria). Revisar antes de considerar esto definitivo.
+const alciraAxes = [
+  {
+    heading: "Gestión pública municipal",
+    items: [
+      "Directora de Obras Privadas del Partido de General Pueyrredón",
+      "Directora de Coordinación Técnica y Control de Gestión, Secretaría de Obras y Planeamiento Urbano, MGP",
+      "Miembro de la Comisión de Excepciones (Decreto 50/96)",
+    ],
+  },
+  {
+    heading: "Producción normativa",
+    items: [
+      "Integrante de la reformulación del Reglamento General de Construcción, con participación en la redacción de normativa de la industria de la construcción",
+      "Presidenta de la Comisión Interinstitucional de la Industria de la Construcción — Ordenanza 12698, Registro de Empresas Constructoras, Contratistas y Subcontratistas",
+      "Presidenta de la Comisión Interinstitucional de la Ordenanza de Mantenimiento Edilicio N° 12562",
+      "Disertante en representación municipal sobre normativa de la industria de la construcción",
+    ],
+  },
+  {
+    heading: "Ámbito académico",
+    items: [
+      "Docencia universitaria, Universidad Nacional de Mar del Plata",
+      "Miembro del Consejo Superior, UNMdP",
+      "Secretaría de Extensión, Facultad de Arquitectura, Urbanismo y Diseño",
+    ],
+  },
+  {
+    heading: "Formación profesional",
+    items: [
+      "Directora del Centro de Formación Profesional N° 407 (UOCRA), Mar del Plata",
+      "Coordinadora Regional de la Fundación de Investigación y Capacitación de la Industria de la Construcción",
+      "Coordinación de la 1ª Certificación de Competencia Laboral en la Industria de la Construcción, Mar del Plata",
+    ],
+  },
+  {
+    heading: "Distinciones y congresos",
+    items: [
+      "3er Premio Nacional de Vivienda de Interés Social",
+      "Miembro titular de la organización del 1er Congreso de Vivienda de Interés Social y del 1er Congreso de Barreras Arquitectónicas, con disertación",
+      "Disertante en ponencias sobre patrimonio arquitectónico",
+    ],
+  },
 ];
 
 const howWeWork = [
@@ -100,12 +144,25 @@ const howWeWork = [
         </div>
       </div>
 
-      <div class="mt-8 space-y-4 text-ink-soft">
+      <p class="mt-8 text-ink-soft">{alciraIntro}</p>
+
+      <div class="mt-8 space-y-8">
         {
-          alciraBio.map((paragraph) => (
-            <p>
-              <RichText text={paragraph} class="[&_strong]:text-primary" />
-            </p>
+          alciraAxes.map((axis) => (
+            <div>
+              <h3 class="font-serif text-lg text-primary">{axis.heading}</h3>
+              <ul class="mt-3 space-y-2">
+                {axis.items.map((item) => (
+                  <li class="flex gap-3 text-ink-soft">
+                    <span
+                      class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                      aria-hidden="true"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))
         }
       </div>
