@@ -5,6 +5,7 @@
     { "source": "/nosotros.html", "destination": "/nosotros", "statusCode": 301 },
     { "source": "/publicaciones.html", "destination": "/publicaciones", "statusCode": 301 },
     { "source": "/gracias.html", "destination": "/contacto", "statusCode": 301 },
+    { "source": "/areas/urbanismo", "destination": "/consultoria", "statusCode": 301 },
     {
       "source": "/docs/Modelo_Contrato_Locacion_Comercial.pdf",
       "destination": "/areas/contratos",

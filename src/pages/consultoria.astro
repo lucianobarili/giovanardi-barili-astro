@@ -1,0 +1,184 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Heading from "../components/ui/Heading.astro";
+import Button from "../components/ui/Button.astro";
+import RichText from "../components/ui/RichText.astro";
+import { getWhatsAppUrl } from "../data/site";
+
+const whatsappMessage = "Hola, quisiera solicitar una evaluación técnica.";
+const ctaLabel = "Solicitar una evaluación previa";
+
+const evaluamos = [
+  "**Expedientes de obra** en su integralidad: documentación técnica, dominial, societaria y contractual",
+  "**Interpretación y aplicación** de códigos urbanos y reglamentos de edificación",
+  "**Normativa patrimonial** e inmuebles sujetos a régimen de protección",
+  "**Estudios de factibilidad** previos a la adquisición o al desarrollo",
+  "**Informes técnicos** fundados para la toma de decisiones",
+  "**Análisis de expedientes administrativos** en trámite",
+  "**Recursos administrativos** frente a resoluciones municipales",
+  "**Habilitaciones** comerciales e industriales",
+  "**Regularización** de obras ejecutadas sin permiso",
+];
+
+const dirigidaA = [
+  "Desarrolladores e inversores inmobiliarios",
+  "Estudios de arquitectura e ingeniería",
+  "Empresas constructoras",
+  "Organismos públicos",
+  "Particulares con proyectos de obra o intervenciones sobre inmuebles protegidos",
+];
+---
+
+<BaseLayout
+  title="Consultoría técnica en urbanismo y patrimonio"
+  description="Evaluación técnica, normativa y administrativa de expedientes de obra. Urbanismo, patrimonio arquitectónico y gestión ante la Municipalidad de General Pueyrredón."
+>
+  <section class="py-20 sm:py-28">
+    <Container class="mx-auto max-w-[65ch] text-center">
+      <Heading as="h1" align="center" class="mx-auto">
+        Consultoría técnica en urbanismo, arquitectura y patrimonio
+      </Heading>
+      <div class="mx-auto mt-6 max-w-[58ch] space-y-4 text-lg text-ink-soft">
+        <p>
+          Un expediente municipal no se compone únicamente de documentación técnica.
+          Involucra títulos de dominio, personería, estructuras societarias,
+          fideicomisos, contratos y el ejercicio profesional de cada especialidad
+          interviniente.
+        </p>
+        <p>
+          Una parte sustancial de las observaciones no se origina en el proyecto: se
+          origina en esa capa documental y jurídica.
+        </p>
+        <p>
+          <RichText
+            text="Nuestra consultoría interviene sobre el expediente en su conjunto —documentación técnica, administrativa y jurídica— **sin sustituir ni auditar la labor del profesional proyectista**, cuya competencia permanece íntegra."
+            class="[&_strong]:text-primary"
+          />
+        </p>
+      </div>
+      <div class="mt-8 flex justify-center">
+        <Button href={getWhatsAppUrl(whatsappMessage)} target="_blank" size="lg">
+          {ctaLabel}
+        </Button>
+      </div>
+    </Container>
+  </section>
+
+  <section class="border-t border-border bg-surface-alt py-16 sm:py-20">
+    <Container class="mx-auto max-w-[70ch]">
+      <Heading as="h2">Qué evaluamos</Heading>
+      <ul class="mt-6 space-y-3">
+        {
+          evaluamos.map((item) => (
+            <li class="flex gap-3">
+              <span
+                class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                aria-hidden="true"
+              />
+              <RichText text={item} class="text-ink-soft [&_strong]:text-primary" />
+            </li>
+          ))
+        }
+      </ul>
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-16 sm:py-20">
+    <Container class="mx-auto max-w-[70ch]">
+      <Heading as="h2">La evaluación previa</Heading>
+      <div class="mt-6 space-y-4 text-ink-soft">
+        <p>La calidad de un proyecto se define mucho antes del inicio de la obra.</p>
+        <p>
+          Toda documentación vinculada a la autorización de construcción o a la
+          habilitación de una obra puede ser observada por la autoridad competente.
+          Esas observaciones no son arbitrarias: responden a un estándar técnico y
+          normativo determinado. Conocer ese estándar con precisión, y verificar el
+          expediente contra él antes de presentarlo, es lo que reduce las instancias
+          de corrección.
+        </p>
+        <p>
+          La evaluación previa protege tanto al inversor como al particular afectado
+          por una actuación no reglamentaria.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <section class="border-t border-border bg-surface-alt py-16 sm:py-20">
+    <Container class="mx-auto max-w-[70ch]">
+      <Heading as="h2">Fundamento técnico</Heading>
+      <div class="mt-6 space-y-4 text-ink-soft">
+        <p>
+          <RichText
+            text="La consultoría está a cargo de **Alcira Giovanardi**, arquitecta, ex Directora de Obras Privadas del Partido de General Pueyrredón y ex Directora de Coordinación Técnica y Control de Gestión de la Secretaría de Obras y Planeamiento Urbano."
+            class="[&_strong]:text-primary"
+          />
+        </p>
+        <p>
+          Su trayectoria incluye la participación en la reformulación del Reglamento
+          General de Construcción y la presidencia de las comisiones
+          interinstitucionales de las Ordenanzas 12698 y 12562.
+        </p>
+        <p>
+          Esto define el alcance del servicio en términos concretos: conocemos el
+          criterio técnico y normativo con el que un expediente es evaluado, porque
+          intervinimos en su aplicación y en su redacción.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-16 sm:py-20">
+    <Container class="mx-auto max-w-[70ch]">
+      <Heading as="h2">La articulación con el área jurídica</Heading>
+      <div class="mt-6 space-y-4 text-ink-soft">
+        <p>
+          Un expediente que involucra un fideicomiso, una sociedad en formación o una
+          transferencia de dominio requiere que ambas dimensiones se resuelvan de
+          forma coordinada.
+        </p>
+        <p>
+          Que la evaluación técnica y el análisis jurídico se realicen en el mismo
+          ámbito profesional evita la disociación habitual entre profesionales que no
+          intervienen sobre el mismo expediente.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <section class="border-t border-border bg-surface-alt py-16 sm:py-20">
+    <Container class="mx-auto max-w-[70ch]">
+      <Heading as="h2">A quién está dirigida</Heading>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+        {
+          dirigidaA.map((item) => (
+            <li class="flex gap-3 text-ink-soft">
+              <span
+                class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                aria-hidden="true"
+              />
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-16 text-center sm:py-24">
+    <Container>
+      <Heading as="h2" align="center" class="mx-auto max-w-2xl">
+        {ctaLabel}
+      </Heading>
+      <div class="mt-6 flex justify-center">
+        <Button href={getWhatsAppUrl(whatsappMessage)} target="_blank" size="lg">
+          {ctaLabel}
+        </Button>
+      </div>
+      <p class="mx-auto mt-4 max-w-md text-sm text-ink-soft">
+        Consultar no compromete a nada.
+      </p>
+    </Container>
+  </section>
+</BaseLayout>

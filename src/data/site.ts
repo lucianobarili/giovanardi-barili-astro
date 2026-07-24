@@ -31,6 +31,7 @@ export function getWhatsAppUrl(message: string = site.whatsapp.defaultMessage): 
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "Áreas", href: "/#areas" },
+  { label: "Consultoría", href: "/consultoria" },
   { label: "Nosotros", href: "/nosotros" },
   { label: "Publicaciones", href: "/publicaciones" },
   { label: "Contacto", href: "/contacto" },
