@@ -24,6 +24,7 @@ const pageTitle = `${title} · ${site.name}`;
 const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === "true";
 
 const organizationId = `${Astro.site}#organization`;
+const consultingServiceId = `${Astro.site}#consultoria-tecnica`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -56,6 +57,28 @@ const jsonLd = {
         name: "Universidad Austral",
       },
       worksFor: { "@id": organizationId },
+    },
+    {
+      "@type": "Person",
+      "@id": `${Astro.site}#alcira-giovanardi`,
+      name: "Alcira Giovanardi",
+      jobTitle: "Arquitecta",
+      worksFor: { "@id": organizationId },
+    },
+    {
+      // Línea de servicio propia (Fase 3): consultoría técnica, distinta de
+      // las áreas de práctica jurídica. Público, alcance y profesional a
+      // cargo son todos distintos del LegalService general.
+      "@type": "Service",
+      "@id": consultingServiceId,
+      name: "Consultoría técnica en urbanismo, arquitectura y patrimonio",
+      serviceType: "Consultoría técnica de arquitectura y urbanismo",
+      provider: { "@id": `${Astro.site}#alcira-giovanardi` },
+      areaServed: {
+        "@type": "City",
+        name: "Mar del Plata",
+      },
+      url: new URL("/consultoria", Astro.site),
     },
   ],
 };
