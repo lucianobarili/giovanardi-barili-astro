@@ -1,0 +1,66 @@
+---
+import Button from "./Button.astro";
+---
+
+<div
+  id="cookie-banner"
+  class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-border bg-surface px-4 py-5 shadow-lg sm:px-6"
+  role="region"
+  aria-label="Consentimiento de cookies"
+>
+  <div
+    class="mx-auto flex max-w-6xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p class="text-sm text-ink-soft">
+      Usamos cookies analíticas para entender cómo se usa el sitio. Solo se activan
+      si las aceptás. Podés rechazarlas y navegar con normalidad.
+      <a href="/privacidad" class="font-semibold text-accent underline hover:text-primary"
+        >Leé la política de privacidad</a
+      >.
+    </p>
+    <div class="flex shrink-0 gap-3">
+      <Button id="cookie-reject" type="button" variant="secondary">Rechazar</Button>
+      <Button id="cookie-accept" type="button" variant="primary">Aceptar</Button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { getConsent, setConsent } from "../../utils/consent";
+
+  const banner = document.getElementById("cookie-banner");
+  const acceptBtn = document.getElementById("cookie-accept");
+  const rejectBtn = document.getElementById("cookie-reject");
+
+  function hideBanner() {
+    banner?.classList.add("hidden");
+  }
+
+  function showBanner() {
+    banner?.classList.remove("hidden");
+    acceptBtn?.focus();
+  }
+
+  if (banner && acceptBtn && rejectBtn) {
+    if (getConsent() === null) {
+      showBanner();
+    }
+
+    acceptBtn.addEventListener("click", () => {
+      setConsent("accepted");
+      hideBanner();
+    });
+
+    rejectBtn.addEventListener("click", () => {
+      setConsent("rejected");
+      hideBanner();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !banner.classList.contains("hidden")) {
+        setConsent("rejected");
+        hideBanner();
+      }
+    });
+  }
+</script>

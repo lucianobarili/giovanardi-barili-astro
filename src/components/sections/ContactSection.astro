@@ -28,6 +28,7 @@ const contactCards = [
     value: site.whatsapp.display,
     href: getWhatsAppUrl(),
     external: true,
+    ubicacion: "contacto",
   },
   {
     icon: Mail,
@@ -35,6 +36,7 @@ const contactCards = [
     value: site.email,
     href: `mailto:${site.email}`,
     external: false,
+    ubicacion: undefined,
   },
 ];
 ---
@@ -87,6 +89,7 @@ const contactCards = [
                 href={card.href}
                 target={card.external ? "_blank" : undefined}
                 rel={card.external ? "noopener noreferrer" : undefined}
+                data-ubicacion={card.ubicacion}
                 class="flex items-center gap-3 rounded-xl bg-white p-5 shadow-sm transition-colors hover:bg-accent-soft/10"
               >
                 <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft/15 text-accent">
@@ -148,6 +151,13 @@ const contactCards = [
           status.textContent = "¡Gracias! Te vamos a responder a la brevedad.";
           status.className = "min-h-5 text-sm text-primary";
           form.reset();
+
+          // Conversión #2: solo en envío exitoso, sin datos del formulario
+          // (ni nombre, ni email, ni mensaje) — nada personal va a GA4.
+          if (typeof window.gtag === "function") {
+            const pagina = window.location.pathname === "/contacto" ? "contacto" : "home";
+            window.gtag("event", "contact_form_submit", { pagina });
+          }
         } else {
           status.textContent = "Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.";
           status.className = "min-h-5 text-sm text-accent";
