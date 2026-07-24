@@ -1,4 +1,4 @@
-export type AreaIcon = "signature" | "scroll" | "key-round" | "users" | "building-2" | "landmark";
+export type AreaIcon = "signature" | "scroll" | "key-round" | "users" | "building-2";
 
 export interface AreaListSection {
   heading: string;
@@ -322,68 +322,6 @@ export const areas: Area[] = [
       },
     ],
     ctaLabel: "Contanos qué necesita tu empresa",
-  },
-  {
-    slug: "urbanismo",
-    navLabel: "Urbanismo y gestión municipal",
-    homeDescription:
-      "Aprobación de obras, habilitaciones y trámites ante la Municipalidad de General Pueyrredón. Patrimonio arquitectónico y normativa urbanística.",
-    icon: "landmark",
-    whatsappMessage: "Hola, quisiera consultar por un trámite municipal o una obra.",
-    seoTitle: "Aprobación de obras y trámites municipales en Mar del Plata | Giovanardi Barili",
-    seoDescription:
-      "Aprobación de obras, habilitaciones y expedientes ante la Municipalidad de General Pueyrredón. Normativa urbanística y patrimonio arquitectónico.",
-    h1: "Expedientes que avanzan",
-    intro: [
-      "Un expediente municipal que vuelve con observaciones cuesta meses. Uno que vuelve tres veces puede costar una temporada entera, y con ella el negocio que dependía de esa habilitación.",
-      "La mayoría de esas observaciones no son arbitrarias: responden a un estándar técnico y normativo que está escrito, pero que no siempre es evidente desde afuera. Nuestra ventaja es conocer ese estándar desde adentro.",
-    ],
-    solves: {
-      heading: "Qué resolvemos",
-      items: [
-        "**Aprobación de obras privadas** — presentación y seguimiento de expedientes",
-        "**Habilitaciones comerciales e industriales**",
-        "**Regularización de obras** ejecutadas sin permiso",
-        "**Normativa urbanística** — indicadores, usos del suelo, factores de ocupación, excepciones",
-        "**Patrimonio arquitectónico** — inmuebles catalogados y su régimen de protección",
-        "**Recursos administrativos** frente a resoluciones municipales",
-        "**Asesoramiento previo a la compra** de un terreno o inmueble: qué se puede construir efectivamente ahí antes de comprarlo",
-      ],
-    },
-    sections: [
-      {
-        heading: "Por qué acá tenemos una ventaja real",
-        paragraphs: [
-          "**Alcira Giovanardi** fue **Directora de Obras Privadas de la Municipalidad de General Pueyrredón**. Durante ese período tuvo a su cargo el estudio y la aprobación de obras de gran escala de la ciudad, y participó en la redacción de ordenanzas y decretos municipales que hoy siguen vigentes.",
-          "Eso significa algo concreto y verificable: conocemos el criterio técnico con el que un expediente se evalúa, porque lo aplicamos durante años y porque contribuimos a escribir parte de esa normativa. Presentamos expedientes completos y correctos desde el inicio, que es lo único que efectivamente reduce las idas y vueltas.",
-        ],
-      },
-      {
-        heading: "Jurídico + arquitectónico",
-        paragraphs: [
-          "En urbanismo, el problema casi nunca es solo legal ni solo técnico. Una excepción normativa requiere argumento jurídico y proyecto arquitectónico que lo sostenga. Una regularización requiere saber qué es viable construir y también cómo se encuadra normativamente.",
-          "Que las dos miradas estén en el mismo estudio evita el ida y vuelta entre profesionales que no se hablan entre sí — que es donde estos expedientes suelen perder tiempo.",
-        ],
-      },
-    ],
-    faq: [
-      {
-        question: "Compré un terreno y no sé qué puedo construir. ¿Me pueden ayudar?",
-        answer:
-          "Sí, y es la consulta más útil de todas: idealmente **antes** de comprar. La normativa urbanística define qué se puede construir en cada zona, y no siempre coincide con lo que el vendedor afirma.",
-      },
-      {
-        question: "Tengo una obra hecha sin permiso. ¿Tiene solución?",
-        answer:
-          "En muchos casos sí, mediante regularización. La viabilidad depende de si lo construido se ajusta a la normativa aplicable. Es una evaluación técnica que conviene hacer antes de que aparezca una intimación.",
-      },
-      {
-        question: "¿Este servicio es solo para Mar del Plata?",
-        answer:
-          "Los trámites municipales son ante la Municipalidad de General Pueyrredón. El asesoramiento en normativa urbanística y el análisis previo se pueden hacer para otros partidos de la Provincia.",
-      },
-    ],
-    ctaLabel: "Contanos qué obra o trámite tenés",
   },
 ];
 
