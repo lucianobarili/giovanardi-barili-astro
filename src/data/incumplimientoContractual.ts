@@ -32,9 +32,9 @@ export const incumplimientoContractual: IncumplimientoContractualLanding = {
   eyebrow: "INCUMPLIMIENTO CONTRACTUAL · MAR DEL PLATA",
   h1: "¿Ya firmaste y la otra parte no está cumpliendo?",
   tension:
-    "Esperar a que se acomode solo puede hacerte perder tiempo y margen para actuar.",
+    "Esperar a que se acomode solo puede hacerte perder plata y tiempo.",
   solution:
-    "Revisamos qué se acordó, qué no se está cumpliendo y qué alternativas tenés para avanzar.",
+    "Revisamos qué firmaste, qué no se está cumpliendo y qué alternativas tenés para hacer valer tus derechos",
   cta: {
     primary: "Contanos qué no se está cumpliendo por WhatsApp",
     middle: "Contanos qué no se está cumpliendo",

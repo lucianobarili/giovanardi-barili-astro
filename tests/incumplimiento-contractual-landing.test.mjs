@@ -23,11 +23,11 @@ test("mantiene la continuidad entre búsqueda, anuncio y hero de incumplimiento"
   assert.match(html, /¿Ya firmaste y la otra parte no está cumpliendo\?/);
   assert.match(
     html,
-    /Esperar a que se acomode solo puede hacerte perder tiempo y margen para actuar\./,
+    /Esperar a que se acomode solo puede hacerte perder plata y tiempo\./,
   );
   assert.match(
     html,
-    /Revisamos qué se acordó, qué no se está cumpliendo y qué alternativas tenés para avanzar\./,
+    /Revisamos qué firmaste, qué no se está cumpliendo y qué alternativas tenés para hacer valer tus derechos/,
   );
   assert.doesNotMatch(html, /Las condiciones todavía no/);
   assert.doesNotMatch(html, /¿Te mandaron un contrato y ya están esperando que firmes\?/);
