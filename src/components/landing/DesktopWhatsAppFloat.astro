@@ -1,0 +1,60 @@
+---
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import Button from "../ui/Button.astro";
+import { getWhatsAppUrl } from "../../data/site";
+
+interface Props {
+  message: string;
+  label: string;
+  landingId: string;
+  intent: string;
+  messageVariant: string;
+}
+
+const { message, label, landingId, intent, messageVariant } = Astro.props;
+---
+
+<div
+  id="desktop-whatsapp-float"
+  class="pointer-events-none fixed bottom-6 right-6 z-30 hidden translate-y-3 opacity-0 transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none md:block"
+  aria-hidden="true"
+>
+  <Button
+    href={getWhatsAppUrl(message)}
+    target="_blank"
+    size="lg"
+    class="shadow-[0_10px_30px_rgba(22,53,44,0.22)]"
+    data-cro-cta
+    data-landing-id={landingId}
+    data-intent={intent}
+    data-message-variant={messageVariant}
+    data-ubicacion="floating_desktop"
+  >
+    <MessageCircle class="h-5 w-5" aria-hidden="true" />
+    {label}
+  </Button>
+</div>
+
+<script>
+  const desktopFloat = document.getElementById("desktop-whatsapp-float");
+  const landingHero = document.getElementById("landing-hero");
+
+  if (desktopFloat && landingHero) {
+    const setDesktopFloatVisible = (visible: boolean) => {
+      desktopFloat.classList.toggle("pointer-events-none", !visible);
+      desktopFloat.classList.toggle("translate-y-3", !visible);
+      desktopFloat.classList.toggle("opacity-0", !visible);
+      desktopFloat.classList.toggle("pointer-events-auto", visible);
+      desktopFloat.classList.toggle("translate-y-0", visible);
+      desktopFloat.classList.toggle("opacity-100", visible);
+      desktopFloat.setAttribute("aria-hidden", String(!visible));
+    };
+
+    const desktopFloatObserver = new IntersectionObserver(
+      ([entry]) => setDesktopFloatVisible(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+
+    desktopFloatObserver.observe(landingHero);
+  }
+</script>

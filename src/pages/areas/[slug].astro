@@ -65,6 +65,34 @@ const faqJsonLd = {
     </Container>
   </section>
 
+  {
+    area.intentLandings && (
+      <section class="border-t border-border py-8 sm:py-10">
+        <Container class="mx-auto max-w-5xl">
+          <div class="grid gap-8 md:grid-cols-2">
+            {area.intentLandings.map((landing) => (
+              <a
+                href={landing.href}
+                class="group block border-l-2 border-accent py-1 pl-5"
+              >
+                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                  {landing.eyebrow}
+                </p>
+                <h2 class="mt-2 font-serif text-2xl leading-tight text-primary">
+                  {landing.title}
+                </h2>
+                <p class="mt-2 text-ink-soft">{landing.description}</p>
+                <span class="mt-4 inline-flex font-semibold text-primary transition-colors group-hover:text-accent">
+                  {landing.label} →
+                </span>
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
+    )
+  }
+
   <section class="border-t border-border bg-surface-alt py-16 sm:py-20">
     <Container class="mx-auto max-w-[70ch]">
       <Heading as="h2">{area.solves.heading}</Heading>

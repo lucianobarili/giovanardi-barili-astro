@@ -27,5 +27,8 @@ pnpm-debug.log*
 # Vercel
 .vercel/
 
+# Local analysis artifacts
+tmp/
+
 # Internal notes with pending legal decisions - not for the public repo
 borrador-politica-privacidad.md
