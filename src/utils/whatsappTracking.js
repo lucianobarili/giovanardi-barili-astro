@@ -16,6 +16,17 @@ function inferArea(pathname) {
   return areaMatch ? areaMatch[1] : slug;
 }
 
+export const GOOGLE_ADS_CONVERSION_ID = "AW-18419410199";
+const GOOGLE_ADS_WHATSAPP_CONVERSION_LABEL = "IBdACNbqrYAdEJfKh89E";
+
+export function buildGoogleAdsWhatsappConversion() {
+  return {
+    send_to: `${GOOGLE_ADS_CONVERSION_ID}/${GOOGLE_ADS_WHATSAPP_CONVERSION_LABEL}`,
+    value: 1,
+    currency: "USD",
+  };
+}
+
 /**
  * Normaliza sólo datos de atribución. Nunca recibe ni devuelve el teléfono,
  * el texto precargado o contenido escrito por la persona.
