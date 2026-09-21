@@ -75,3 +75,13 @@ test("atribuye una consulta a la situación elegida sin enviar el mensaje", asyn
   assert.equal(payload.message_variant, "situacion_no_refleja_acuerdo");
   assert.equal("message" in payload, false);
 });
+
+test("construye la conversión de Google Ads para un clic de WhatsApp", async () => {
+  const { buildGoogleAdsWhatsappConversion } = await import(trackingModuleUrl);
+
+  assert.deepEqual(buildGoogleAdsWhatsappConversion(), {
+    send_to: "AW-18419410199/IBdACNbqrYAdEJfKh89E",
+    value: 1,
+    currency: "USD",
+  });
+});
