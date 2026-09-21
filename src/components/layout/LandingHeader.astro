@@ -1,0 +1,45 @@
+---
+import Container from "../ui/Container.astro";
+import Button from "../ui/Button.astro";
+import Wordmark from "../ui/Wordmark.astro";
+import { getWhatsAppUrl } from "../../data/site";
+
+interface Props {
+  whatsappMessage: string;
+  tracking: {
+    landingId: string;
+    intent: string;
+    messageVariant: string;
+  };
+  desktopLabel: string;
+  mobileLabel: string;
+}
+
+const { whatsappMessage, tracking: trackingValues, desktopLabel, mobileLabel } = Astro.props;
+const whatsappUrl = getWhatsAppUrl(whatsappMessage);
+const tracking = {
+  "data-landing-id": trackingValues.landingId,
+  "data-intent": trackingValues.intent,
+  "data-message-variant": trackingValues.messageVariant,
+  "data-ubicacion": "header",
+};
+---
+
+<header class="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur">
+  <Container as="nav" aria-label="Navegación de la landing" class="flex h-16 items-center justify-between gap-4">
+    <a href="/" aria-label="Giovanardi Barili, inicio">
+      <Wordmark class="[&>span:last-child]:hidden sm:[&>span:last-child]:block" />
+    </a>
+
+    <span class="hidden sm:block">
+      <Button href={whatsappUrl} target="_blank" data-cro-cta {...tracking}>
+        {desktopLabel}
+      </Button>
+    </span>
+    <span class="sm:hidden">
+      <Button href={whatsappUrl} target="_blank" class="px-4" data-cro-cta {...tracking}>
+        {mobileLabel}
+      </Button>
+    </span>
+  </Container>
+</header>

@@ -39,3 +39,63 @@
     @apply outline-2 outline-offset-2 outline-accent;
   }
 }
+
+@media (max-width: 767px) {
+  body:has(#cookie-banner:not(.hidden)) #mobile-whatsapp-bar {
+    display: none;
+  }
+}
+
+body:has(#cookie-banner:not(.hidden)) #desktop-whatsapp-float {
+  display: none;
+}
+
+[data-cro-cta] {
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-duration: 180ms;
+  transition-timing-function: ease-out;
+}
+
+[data-situation-link] {
+  transition-property: background-color, border-color, transform;
+  transition-duration: 180ms;
+  transition-timing-function: ease-out;
+}
+
+[data-situation-arrow] {
+  transition-property: opacity, transform;
+  transition-duration: 180ms;
+  transition-timing-function: ease-out;
+}
+
+@media (hover: hover) {
+  [data-cro-cta]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgb(22 53 44 / 18%);
+  }
+
+  [data-situation-link]:hover {
+    background-color: var(--color-surface);
+    border-color: color-mix(in srgb, var(--color-accent) 62%, transparent);
+    transform: translateY(-2px);
+  }
+
+  [data-situation-link]:hover [data-situation-arrow] {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+[data-cro-cta]:active,
+[data-situation-link]:active {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-cro-cta],
+  [data-situation-link],
+  [data-situation-arrow] {
+    transition-duration: 0ms;
+    transform: none !important;
+  }
+}

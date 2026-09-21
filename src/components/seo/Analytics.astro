@@ -80,6 +80,8 @@ const gaEnabled = isProduction && Boolean(measurementId);
 }
 
 <script>
+  import { buildWhatsappEventPayload } from "../../utils/whatsappTracking.js";
+
   // Conversión #1: click a cualquier link de WhatsApp, en cualquier página.
   // "area" se infiere de la URL (funciona para páginas futuras sin tocar
   // este archivo); "ubicacion" usa el data-ubicacion explícito del link si
@@ -87,13 +89,6 @@ const gaEnabled = isProduction && Boolean(measurementId);
   // en "cierre" (la mayoría de los CTA de WhatsApp son el cierre de página).
   // Sin consentimiento, window.gtag nunca se define — el guard de abajo ya
   // alcanza para que esto sea un no-op total.
-  function inferArea(pathname: string): string {
-    const slug = pathname.replace(/^\/|\/$/g, "");
-    if (!slug) return "home";
-    const areaMatch = slug.match(/^areas\/(.+)$/);
-    return areaMatch ? areaMatch[1] : slug;
-  }
-
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement | null;
     const link = target?.closest('a[href*="wa.me"]') as HTMLAnchorElement | null;
@@ -103,9 +98,18 @@ const gaEnabled = isProduction && Boolean(measurementId);
       link.dataset.ubicacion ??
       (link.closest("header") ? "header" : link.closest("footer") ? "footer" : "cierre");
 
-    window.gtag("event", "whatsapp_click", {
-      area: inferArea(window.location.pathname),
-      ubicacion,
-    });
+    window.gtag(
+      "event",
+      "whatsapp_click",
+      buildWhatsappEventPayload({
+        pathname: window.location.pathname,
+        ctaText: link.textContent?.trim(),
+        landingId: link.dataset.landingId,
+        intent: link.dataset.intent,
+        ubicacion,
+        messageVariant: link.dataset.messageVariant,
+        situationId: link.dataset.situationId,
+      }),
+    );
   });
 </script>

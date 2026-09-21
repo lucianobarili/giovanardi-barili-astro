@@ -1,0 +1,326 @@
+---
+import Check from "@lucide/astro/icons/check";
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
+import ChevronDown from "@lucide/astro/icons/chevron-down";
+import TriangleAlert from "@lucide/astro/icons/triangle-alert";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Button from "../components/ui/Button.astro";
+import JsonLd from "../components/seo/JsonLd.astro";
+import MobileWhatsAppBar from "../components/landing/MobileWhatsAppBar.astro";
+import DesktopWhatsAppFloat from "../components/landing/DesktopWhatsAppFloat.astro";
+import { incumplimientoContractual } from "../data/incumplimientoContractual";
+import { getWhatsAppUrl, site } from "../data/site";
+
+const page = incumplimientoContractual;
+const whatsappUrl = getWhatsAppUrl(page.cta.message);
+const trackingValues = {
+  landingId: "incumplimiento_contractual",
+  intent: "incumplimiento_contrato_firmado",
+  messageVariant: "incumplimiento_contractual",
+};
+const trackingBase = {
+  "data-landing-id": trackingValues.landingId,
+  "data-intent": trackingValues.intent,
+  "data-message-variant": trackingValues.messageVariant,
+};
+
+const pageJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${Astro.site}${page.slug}/#service`,
+      name: "Asesoramiento ante incumplimientos contractuales",
+      serviceType: "Análisis jurídico de incumplimientos contractuales",
+      provider: { "@id": `${Astro.site}#organization` },
+      areaServed: [
+        { "@type": "City", name: "Mar del Plata" },
+        { "@type": "AdministrativeArea", name: "Provincia de Buenos Aires" },
+      ],
+      url: new URL(`/${page.slug}/`, Astro.site),
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: page.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={page.seoTitle}
+  description={page.seoDescription}
+  headerVariant="landing"
+  landingWhatsappMessage={page.cta.message}
+  landingTracking={trackingValues}
+  landingHeaderLabels={{
+    desktop: "Contanos qué no se cumple",
+    mobile: "Contanos qué pasó",
+  }}
+  appendSiteName={false}
+>
+  <JsonLd data={pageJsonLd} />
+
+  <article class="pb-24 md:pb-0">
+    <section id="landing-hero" class="py-14 sm:py-20 lg:py-24">
+      <Container class="max-w-4xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-accent sm:text-sm">
+          {page.eyebrow}
+        </p>
+
+        <h1 class="mt-4 max-w-[18ch] font-serif text-4xl font-medium leading-[1.06] text-primary text-balance sm:text-5xl lg:text-6xl">
+          {page.h1}
+        </h1>
+
+        <div class="mt-7 max-w-[68ch] border-l-2 border-accent pl-5 sm:mt-8 sm:pl-7">
+          <p class="font-serif text-2xl font-medium leading-tight text-primary sm:text-3xl">
+            {page.tension}
+          </p>
+        </div>
+
+        <p class="mt-6 max-w-[62ch] text-lg leading-relaxed text-ink-soft">
+          {page.solution}
+        </p>
+
+        <div class="mt-7">
+          <Button
+            href={whatsappUrl}
+            target="_blank"
+            size="lg"
+            class="w-full sm:w-auto"
+            data-cro-cta
+            {...trackingBase}
+            data-ubicacion="hero"
+          >
+            <MessageCircle class="h-5 w-5" aria-hidden="true" />
+            {page.cta.primary}
+          </Button>
+          <p class="mt-3 max-w-[62ch] text-sm leading-relaxed text-ink-soft">
+            {page.microcopy}
+          </p>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-2 border-t border-border pt-5 text-sm text-ink-soft sm:flex-row sm:flex-wrap sm:gap-x-5">
+          <span><strong class="font-semibold text-primary">Luciano Barili</strong> · Abogado · Máster en Derecho Empresario</span>
+          <span>{site.matricula}</span>
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border bg-surface-alt py-14 sm:py-18">
+      <Container class="max-w-5xl">
+        <h2 class="max-w-2xl font-serif text-3xl leading-tight text-primary sm:text-4xl">
+          ¿Cuál de estas situaciones se parece a la tuya?
+        </h2>
+        <div class="mt-8 grid border-t border-border sm:grid-cols-2">
+          {page.situations.map((situation, index) => (
+            <a
+              href={getWhatsAppUrl(situation.whatsappMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${situation.title}. Contanos esta situación por WhatsApp`}
+              data-situation-link
+              data-landing-id={trackingValues.landingId}
+              data-intent={trackingValues.intent}
+              data-ubicacion="situation"
+              data-situation-id={situation.id}
+              data-message-variant={situation.messageVariant}
+              class:list={[
+                "group relative block border-b border-border px-5 py-5 focus-visible:z-10 focus-visible:outline-offset-[-2px]",
+                index % 2 === 1 ? "sm:border-l" : "",
+              ]}
+            >
+              <ArrowUpRight
+                data-situation-arrow
+                class="absolute right-5 top-5 h-5 w-5 text-accent opacity-60 sm:translate-x-1 sm:opacity-0"
+                aria-hidden="true"
+              />
+              <h3 class="pr-9 font-serif text-xl leading-snug text-primary">{situation.title}</h3>
+              <p class="mt-2 pr-6 leading-relaxed text-ink-soft">{situation.description}</p>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border py-14 sm:py-20">
+      <Container class="max-w-5xl">
+        <div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-accent">Qué revisamos</p>
+            <h2 class="mt-3 font-serif text-3xl leading-tight text-primary sm:text-4xl">
+              No empezamos por reclamar. Empezamos por entender qué se firmó y qué pasó después.
+            </h2>
+            <p class="mt-5 leading-relaxed text-ink-soft">
+              El contrato es una parte. También importa qué debía hacer cada uno, cuándo debía hacerlo, qué ocurrió en los hechos y qué documentación permite demostrarlo.
+            </p>
+            <p class="mt-4 leading-relaxed text-ink-soft">
+              Con esa información identificamos qué está claro, qué puede discutirse y qué alternativas existen para avanzar.
+            </p>
+
+            <ol class="mt-7 grid border-y border-border sm:grid-cols-3" aria-label="Cómo reconstruimos el incumplimiento">
+              {[
+                ["01", "Lo acordado"],
+                ["02", "Lo que ocurrió"],
+                ["03", "Qué alternativas hay"],
+              ].map(([number, label], index) => (
+                <li class:list={[
+                  "py-4 sm:px-4 sm:first:pl-0 sm:last:pr-0",
+                  index > 0 ? "border-t border-border sm:border-l sm:border-t-0" : "",
+                ]}>
+                  <span class="text-[11px] font-bold tracking-[0.16em] text-accent">{number}</span>
+                  <p class="mt-1 text-sm font-semibold text-primary">{label}</p>
+                </li>
+              ))}
+            </ol>
+
+            <div class="mt-7">
+              <Button
+                href={whatsappUrl}
+                target="_blank"
+                size="lg"
+                class="w-full sm:w-auto"
+                data-cro-cta
+                {...trackingBase}
+                data-ubicacion="mechanism"
+              >
+                <TriangleAlert class="h-5 w-5" aria-hidden="true" />
+                {page.cta.middle}
+              </Button>
+              <p class="mt-3 text-sm text-ink-soft">
+                Podés mandarnos el contrato y explicarnos brevemente qué ocurrió.
+              </p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-primary p-6 text-surface sm:p-8">
+            <h3 class="font-serif text-2xl text-surface">Frente a un incumplimiento, revisamos</h3>
+            <ul class="mt-5 grid gap-3">
+              {page.reviewItems.map((item) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-surface/85">
+                  <Check class="mt-0.5 h-4 w-4 shrink-0 text-accent-soft" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-7 border-t border-surface/15 pt-6">
+              <p class="text-xs font-bold uppercase tracking-[0.16em] text-accent-soft">Para que puedas</p>
+              <ul class="mt-4 space-y-2 text-sm text-surface/85">
+                {page.outcomes.map((outcome) => <li>{outcome}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border bg-surface-alt py-14 sm:py-18">
+      <Container class="max-w-5xl">
+        <h2 class="font-serif text-3xl leading-tight text-primary sm:text-4xl">Empezar es simple</h2>
+        <ol class="mt-8 grid gap-8 sm:grid-cols-3">
+          {page.steps.map((step, index) => (
+            <li class="border-t-2 border-accent pt-4">
+              <span class="text-xs font-bold uppercase tracking-[0.16em] text-accent">
+                Paso {index + 1}
+              </span>
+              <h3 class="mt-3 font-serif text-xl leading-snug text-primary">{step.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-soft">{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </Container>
+    </section>
+
+    <section class="border-t border-border py-14 sm:py-18">
+      <Container class="max-w-5xl">
+        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-14">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-accent">Confianza</p>
+            <h2 class="mt-3 font-serif text-3xl leading-tight text-primary sm:text-4xl">
+              Quién revisa tu situación
+            </h2>
+          </div>
+          <div class="space-y-4 leading-relaxed text-ink-soft">
+            <p>
+              La revisión está a cargo de <strong class="font-semibold text-primary">Luciano Barili</strong>, abogado y Máster en Derecho Empresario por la Universidad Austral, con 13 años de ejercicio profesional y práctica enfocada en derecho privado.
+            </p>
+            <p>
+              Su experiencia combina redacción de contratos e intervención en conflictos contractuales: una mirada que permite analizar tanto lo que quedó escrito como lo que ocurrió cuando el acuerdo dejó de cumplirse.
+            </p>
+            <div class="grid gap-2 border-t border-border pt-4 text-sm sm:grid-cols-2">
+              <p>{site.matricula}</p>
+              <p>Atención presencial en Mar del Plata con cita previa y online en toda la Provincia de Buenos Aires.</p>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border bg-surface-alt py-14 sm:py-18">
+      <Container class="max-w-3xl">
+        <h2 class="font-serif text-3xl leading-tight text-primary sm:text-4xl">Preguntas frecuentes</h2>
+        <div class="mt-7 divide-y divide-border border-y border-border">
+          {page.faq.map((item) => (
+            <details class="group py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-primary marker:content-none">
+                <span>{item.question}</span>
+                <ChevronDown class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-180" aria-hidden="true" />
+              </summary>
+              <p class="max-w-[68ch] pt-3 text-sm leading-relaxed text-ink-soft">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="bg-primary py-14 text-center sm:py-20">
+      <Container class="max-w-3xl">
+        <h2 class="font-serif text-3xl leading-tight text-surface sm:text-4xl">
+          Si ya sabés qué no se está cumpliendo, podemos empezar por ahí.
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl leading-relaxed text-surface/80">
+          Mandanos el contrato y contanos brevemente qué debía pasar y qué ocurrió realmente.
+        </p>
+        <div class="mt-7">
+          <Button
+            href={whatsappUrl}
+            target="_blank"
+            size="lg"
+            class="w-full bg-accent-soft text-primary hover:bg-surface sm:w-auto"
+            data-cro-cta
+            {...trackingBase}
+            data-ubicacion="final"
+          >
+            <MessageCircle class="h-5 w-5" aria-hidden="true" />
+            {page.cta.final}
+          </Button>
+          <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-surface/70">
+            {page.microcopy}
+          </p>
+        </div>
+      </Container>
+    </section>
+  </article>
+
+  <MobileWhatsAppBar
+    message={page.cta.message}
+    label={page.cta.short}
+    landingId={trackingValues.landingId}
+    intent={trackingValues.intent}
+    messageVariant={trackingValues.messageVariant}
+  />
+  <DesktopWhatsAppFloat
+    message={page.cta.message}
+    label={page.cta.floating}
+    landingId={trackingValues.landingId}
+    intent={trackingValues.intent}
+    messageVariant={trackingValues.messageVariant}
+  />
+</BaseLayout>

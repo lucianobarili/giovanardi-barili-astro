@@ -1,0 +1,56 @@
+---
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import Button from "../ui/Button.astro";
+import { getWhatsAppUrl } from "../../data/site";
+
+interface Props {
+  message: string;
+  label: string;
+  landingId: string;
+  intent: string;
+  messageVariant: string;
+}
+
+const { message, label, landingId, intent, messageVariant } = Astro.props;
+---
+
+<div
+  id="mobile-whatsapp-bar"
+  class="fixed inset-x-0 bottom-0 z-30 translate-y-full border-t border-border bg-surface/95 p-3 shadow-[0_-8px_24px_rgba(22,53,44,0.12)] backdrop-blur transition-transform duration-200 motion-reduce:transition-none md:hidden"
+  aria-hidden="true"
+>
+  <Button
+    href={getWhatsAppUrl(message)}
+    target="_blank"
+    size="lg"
+    class="w-full"
+    data-cro-cta
+    data-landing-id={landingId}
+    data-intent={intent}
+    data-message-variant={messageVariant}
+    data-ubicacion="mobile_sticky"
+  >
+    <MessageCircle class="h-5 w-5" aria-hidden="true" />
+    {label}
+  </Button>
+</div>
+
+<script>
+  const bar = document.getElementById("mobile-whatsapp-bar");
+  const hero = document.getElementById("landing-hero");
+
+  if (bar && hero) {
+    const setVisible = (visible: boolean) => {
+      bar.classList.toggle("translate-y-full", !visible);
+      bar.classList.toggle("translate-y-0", visible);
+      bar.setAttribute("aria-hidden", String(!visible));
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+
+    observer.observe(hero);
+  }
+</script>

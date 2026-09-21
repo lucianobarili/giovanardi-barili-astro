@@ -23,6 +23,13 @@ export interface Area {
   seoDescription: string;
   h1: string;
   intro: string[];
+  intentLandings?: {
+    href: string;
+    eyebrow: string;
+    title: string;
+    description: string;
+    label: string;
+  }[];
   solves: {
     heading: string;
     items: string[];
@@ -50,6 +57,24 @@ export const areas: Area[] = [
     intro: [
       "Un contrato mal redactado no se nota hasta que hay un conflicto. Y cuando el conflicto llega, lo que define el resultado es lo que quedó escrito — no lo que las partes creyeron acordar.",
       "Trabajamos sobre la instrumentación jurídica de operaciones reales: que el negocio que tenés en la cabeza tenga el andamiaje legal que lo sostenga, con los riesgos identificados y repartidos antes de firmar.",
+    ],
+    intentLandings: [
+      {
+        href: "/revision-contratos-mar-del-plata/",
+        eyebrow: "Antes de firmar",
+        title: "¿Te mandaron un contrato y querés saber qué estás aceptando?",
+        description:
+          "Conocé cómo funciona la revisión previa y qué podés enviar para empezar.",
+        label: "Revisar un contrato antes de firmar",
+      },
+      {
+        href: "/incumplimiento-contractual-mar-del-plata/",
+        eyebrow: "Después de firmar",
+        title: "¿La otra parte no está cumpliendo lo acordado?",
+        description:
+          "Revisá qué se acordó, qué ocurrió y qué alternativas existen para avanzar.",
+        label: "Entender qué hacer ante un incumplimiento",
+      },
     ],
     solves: {
       heading: "Qué redactamos y revisamos",
