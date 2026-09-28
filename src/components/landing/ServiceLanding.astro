@@ -1,0 +1,104 @@
+---
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
+import Check from "@lucide/astro/icons/check";
+import ChevronDown from "@lucide/astro/icons/chevron-down";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import JsonLd from "../seo/JsonLd.astro";
+import Button from "../ui/Button.astro";
+import Container from "../ui/Container.astro";
+import DesktopWhatsAppFloat from "./DesktopWhatsAppFloat.astro";
+import MobileWhatsAppBar from "./MobileWhatsAppBar.astro";
+import { getWhatsAppUrl, site } from "../../data/site";
+import type { ServiceLanding as LandingData } from "../../data/serviceLandings";
+
+interface Props { page: LandingData }
+const { page } = Astro.props;
+const tracking = { landingId: page.landingId, intent: page.intent, messageVariant: page.messageVariant };
+const trackingAttrs = { "data-landing-id": page.landingId, "data-intent": page.intent, "data-message-variant": page.messageVariant };
+const serviceJsonLd = {
+  "@context": "https://schema.org", "@type": "Service", "@id": `${Astro.site}${page.slug}/#service`,
+  name: page.eyebrow.replace(" · MAR DEL PLATA", ""), provider: { "@id": `${Astro.site}#organization` },
+  areaServed: [{ "@type": "City", name: "Mar del Plata" }, { "@type": "AdministrativeArea", name: "Provincia de Buenos Aires" }],
+  url: new URL(`/${page.slug}/`, Astro.site),
+};
+---
+
+<BaseLayout title={page.seoTitle} description={page.seoDescription} appendSiteName={false} headerVariant="landing"
+  landingWhatsappMessage={page.whatsappMessage} landingTracking={tracking}
+  landingHeaderLabels={{ desktop: page.primaryCta, mobile: page.shortCta }}>
+  <JsonLd data={serviceJsonLd} />
+  <article class="bg-primary pb-24 md:pb-0">
+    <section id="landing-hero" class="py-14 sm:py-20 lg:py-24">
+      <Container class="max-w-4xl">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-accent sm:text-sm">{page.eyebrow}</p>
+        <h1 class="mt-4 max-w-[19ch] font-serif text-4xl font-medium leading-[1.06] text-primary text-balance sm:text-5xl lg:text-6xl">{page.h1}</h1>
+        <div class="mt-7 border-l-2 border-accent pl-5 sm:mt-8 sm:pl-7">
+          <p class="font-serif text-2xl leading-tight text-primary sm:text-3xl">{page.tensionLead}</p>
+          <p class="mt-1 font-serif text-2xl font-semibold leading-tight text-primary sm:text-3xl">{page.tensionStrong}</p>
+        </div>
+        <p class="mt-6 max-w-[62ch] text-lg leading-relaxed text-ink-soft">{page.solution}</p>
+        <div class="mt-7">
+          <Button href={getWhatsAppUrl(page.whatsappMessage)} target="_blank" size="lg" class="w-full sm:w-auto" data-cro-cta {...trackingAttrs} data-ubicacion="hero">
+            <MessageCircle class="h-5 w-5" aria-hidden="true" />{page.primaryCta}
+          </Button>
+          <p class="mt-3 text-sm text-ink-soft">{page.microcopy}</p>
+        </div>
+        <div class="mt-8 border-t border-border pt-5 text-sm text-ink-soft"><strong class="font-semibold text-primary">Luciano Barili</strong> · Abogado · Máster en Derecho Empresario · {site.matricula}</div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border bg-surface-alt py-14 sm:py-18">
+      <Container class="max-w-5xl">
+        <h2 class="font-serif text-3xl leading-tight text-primary sm:text-4xl">¿Cuál de estas situaciones se parece a la tuya?</h2>
+        <div class="mt-8 grid border-t border-border sm:grid-cols-2">
+          {page.situations.map((item, index) => (
+            <a href={getWhatsAppUrl(item.message)} target="_blank" rel="noopener noreferrer" aria-label={`${item.title}. Consultar por WhatsApp`}
+              data-situation-link {...trackingAttrs} data-ubicacion="situation" data-situation-id={item.id} data-message-variant={`situacion_${item.id}`}
+              class:list={["group relative block border-b border-border px-5 py-5 focus-visible:z-10 focus-visible:outline-offset-[-2px]", index % 2 ? "sm:border-l" : ""]}>
+              <ArrowUpRight class="absolute right-5 top-5 h-5 w-5 text-accent opacity-60 sm:opacity-0 sm:group-hover:opacity-100" aria-hidden="true" />
+              <h3 class="pr-9 font-serif text-xl leading-snug text-primary">{item.title}</h3>
+              <p class="mt-2 pr-6 leading-relaxed text-ink-soft">{item.description}</p>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border py-14 sm:py-20">
+      <Container class="max-w-5xl">
+        <div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-accent">{page.mechanismEyebrow}</p>
+            <h2 class="mt-3 font-serif text-3xl leading-tight text-primary sm:text-4xl">{page.mechanismTitle}</h2>
+            {page.mechanismBody.map((paragraph) => <p class="mt-5 leading-relaxed text-ink-soft">{paragraph}</p>)}
+            <div class="mt-7"><Button href={getWhatsAppUrl(page.whatsappMessage)} target="_blank" size="lg" class="w-full sm:w-auto" data-cro-cta {...trackingAttrs} data-ubicacion="mechanism">Consultar mi situación</Button></div>
+          </div>
+          <div class="rounded-2xl bg-primary p-6 text-surface sm:p-8">
+            <h3 class="font-serif text-2xl text-surface">{page.checklistTitle}</h3>
+            <ul class="mt-5 grid gap-3">{page.checklist.map((item) => <li class="flex gap-3 text-sm leading-relaxed text-surface/85"><Check class="mt-0.5 h-4 w-4 shrink-0 text-accent-soft" aria-hidden="true" /><span>{item}</span></li>)}</ul>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border bg-surface-alt py-14 sm:py-18">
+      <Container class="max-w-5xl"><h2 class="font-serif text-3xl text-primary sm:text-4xl">Cómo empezar</h2>
+        <ol class="mt-8 grid gap-8 sm:grid-cols-3">{page.steps.map((step, index) => <li class="border-t-2 border-accent pt-4"><span class="text-xs font-bold uppercase tracking-[0.16em] text-accent">Paso {index + 1}</span><h3 class="mt-3 font-serif text-xl text-primary">{step.title}</h3><p class="mt-2 text-sm leading-relaxed text-ink-soft">{step.description}</p></li>)}</ol>
+      </Container>
+    </section>
+
+    <section class="border-t border-border py-14 sm:py-18">
+      <Container class="max-w-3xl"><h2 class="font-serif text-3xl text-primary sm:text-4xl">Preguntas frecuentes</h2>
+        <div class="mt-7 divide-y divide-border border-y border-border">{page.faq.map((item) => <details class="group py-4"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-primary marker:content-none"><span>{item.question}</span><ChevronDown class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-180" aria-hidden="true" /></summary><p class="max-w-[68ch] pt-3 text-sm leading-relaxed text-ink-soft">{item.answer}</p></details>)}</div>
+      </Container>
+    </section>
+
+    <section class="bg-primary py-14 text-center sm:py-20"><Container class="max-w-3xl">
+      <h2 class="font-serif text-3xl leading-tight text-surface sm:text-4xl">{page.finalTitle}</h2><p class="mx-auto mt-4 max-w-2xl leading-relaxed text-surface/80">{page.finalBody}</p>
+      <div class="mt-7"><Button href={getWhatsAppUrl(page.whatsappMessage)} target="_blank" size="lg" class="w-full bg-accent-soft text-primary hover:bg-surface sm:w-auto" data-cro-cta {...trackingAttrs} data-ubicacion="final"><MessageCircle class="h-5 w-5" aria-hidden="true" />{page.primaryCta}</Button></div>
+    </Container></section>
+  </article>
+  <MobileWhatsAppBar message={page.whatsappMessage} label={page.shortCta} landingId={page.landingId} intent={page.intent} messageVariant={page.messageVariant} />
+  <DesktopWhatsAppFloat message={page.whatsappMessage} label={page.shortCta} landingId={page.landingId} intent={page.intent} messageVariant={page.messageVariant} />
+</BaseLayout>

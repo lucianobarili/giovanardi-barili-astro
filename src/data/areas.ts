@@ -140,6 +140,13 @@ export const areas: Area[] = [
       "La sucesión llega en el peor momento posible: cuando la familia está atravesando una pérdida. A eso se suma un trámite judicial que la mayoría de la gente nunca hizo, con plazos y decisiones que hay que tomar sin saber bien cómo.",
       "Tramitamos sucesiones de principio a fin y también intervenimos cuando el problema no es el trámite sino el conflicto entre herederos.",
     ],
+    intentLandings: [{
+      href: "/sucesiones-mar-del-plata/",
+      eyebrow: "Orientación inicial",
+      title: "¿Necesitás iniciar una sucesión y no sabés por dónde empezar?",
+      description: "Conocé qué información reunir y cómo evaluamos el trámite o el conflicto.",
+      label: "Consultar por una sucesión",
+    }],
     solves: {
       heading: "Qué resolvemos",
       items: [
@@ -199,6 +206,13 @@ export const areas: Area[] = [
       "Un inmueble ocupado por alguien que no paga, o que se niega a irse cuando terminó el contrato, deja de ser un activo y pasa a ser un problema que además cuesta plata todos los meses.",
       "Del otro lado está la situación inversa: quien ocupó y mejoró un inmueble durante años, lo trata como propio, pero no tiene título que lo respalde.",
     ],
+    intentLandings: [{
+      href: "/desalojos-mar-del-plata/",
+      eyebrow: "Recuperación del inmueble",
+      title: "¿El inquilino no paga o no entrega la propiedad?",
+      description: "Revisá qué documentación sirve y cuáles pueden ser los próximos pasos.",
+      label: "Consultar por un desalojo",
+    }],
     solves: {
       heading: "Qué resolvemos",
       items: [
@@ -252,6 +266,13 @@ export const areas: Area[] = [
       "El divorcio en sí, desde la reforma del Código Civil y Comercial, es un trámite relativamente sencillo: no hace falta invocar causa ni probar culpas. Lo complejo, lo que efectivamente se discute y lo que define el futuro económico de cada uno, es el patrimonio.",
       "Ahí es donde ponemos el foco.",
     ],
+    intentLandings: [{
+      href: "/divorcios-mar-del-plata/",
+      eyebrow: "Divorcio y patrimonio",
+      title: "¿Querés divorciarte y necesitás saber cómo empezar?",
+      description: "Conocé cómo abordamos el divorcio, la división de bienes y la compensación económica.",
+      label: "Consultar por un divorcio",
+    }],
     solves: {
       heading: "Qué resolvemos",
       items: [
@@ -308,6 +329,13 @@ export const areas: Area[] = [
       "Dos momentos concentran casi todas las consultas societarias. El primero es al principio: qué tipo de sociedad conviene para el negocio que se quiere armar, cómo se reparte, qué pasa si uno quiere salir. El segundo es cuando algo se rompió entre los socios.",
       "El primero es mucho más barato que el segundo. Y buena parte de los conflictos del segundo momento se originan en decisiones no tomadas en el primero.",
     ],
+    intentLandings: [{
+      href: "/conflictos-entre-socios-mar-del-plata/",
+      eyebrow: "Conflicto societario",
+      title: "¿La discusión entre socios está frenando la empresa?",
+      description: "Evaluá alternativas para recuperar control, negociar una salida o proteger el negocio.",
+      label: "Consultar por un conflicto entre socios",
+    }],
     solves: {
       heading: "Qué resolvemos",
       items: [
