@@ -38,8 +38,12 @@ const { message, label, landingId, intent, messageVariant } = Astro.props;
 <script>
   const bar = document.getElementById("mobile-whatsapp-bar");
   const hero = document.getElementById("landing-hero");
+  const footer = document.querySelector("footer");
 
   if (bar && hero) {
+    let heroVisible = true;
+    let footerVisible = false;
+
     const setVisible = (visible: boolean) => {
       bar.classList.toggle("translate-y-full", !visible);
       bar.classList.toggle("translate-y-0", visible);
@@ -47,10 +51,24 @@ const { message, label, landingId, intent, messageVariant } = Astro.props;
     };
 
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(!entry.isIntersecting),
+      ([entry]) => {
+        heroVisible = entry.isIntersecting;
+        setVisible(!heroVisible && !footerVisible);
+      },
       { threshold: 0 },
     );
 
     observer.observe(hero);
+
+    if (footer) {
+      const footerObserver = new IntersectionObserver(
+        ([entry]) => {
+          footerVisible = entry.isIntersecting;
+          setVisible(!heroVisible && !footerVisible);
+        },
+        { threshold: 0 },
+      );
+      footerObserver.observe(footer);
+    }
   }
 </script>

@@ -38,8 +38,12 @@ const { message, label, landingId, intent, messageVariant } = Astro.props;
 <script>
   const desktopFloat = document.getElementById("desktop-whatsapp-float");
   const landingHero = document.getElementById("landing-hero");
+  const footer = document.querySelector("footer");
 
   if (desktopFloat && landingHero) {
+    let heroVisible = true;
+    let footerVisible = false;
+
     const setDesktopFloatVisible = (visible: boolean) => {
       desktopFloat.classList.toggle("pointer-events-none", !visible);
       desktopFloat.classList.toggle("translate-y-3", !visible);
@@ -51,10 +55,24 @@ const { message, label, landingId, intent, messageVariant } = Astro.props;
     };
 
     const desktopFloatObserver = new IntersectionObserver(
-      ([entry]) => setDesktopFloatVisible(!entry.isIntersecting),
+      ([entry]) => {
+        heroVisible = entry.isIntersecting;
+        setDesktopFloatVisible(!heroVisible && !footerVisible);
+      },
       { threshold: 0 },
     );
 
     desktopFloatObserver.observe(landingHero);
+
+    if (footer) {
+      const footerObserver = new IntersectionObserver(
+        ([entry]) => {
+          footerVisible = entry.isIntersecting;
+          setDesktopFloatVisible(!heroVisible && !footerVisible);
+        },
+        { threshold: 0 },
+      );
+      footerObserver.observe(footer);
+    }
   }
 </script>
