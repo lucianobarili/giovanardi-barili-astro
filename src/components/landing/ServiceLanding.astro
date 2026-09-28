@@ -88,16 +88,16 @@ const serviceJsonLd = {
       </Container>
     </section>
 
-    <section class="border-t border-border py-14 sm:py-18">
-      <Container class="max-w-3xl"><h2 class="font-serif text-3xl text-primary sm:text-4xl">Preguntas frecuentes</h2>
-        <div class="mt-7 divide-y divide-border border-y border-border">{page.faq.map((item) => <details class="group py-4"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-primary marker:content-none"><span>{item.question}</span><ChevronDown class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-180" aria-hidden="true" /></summary><p class="max-w-[68ch] pt-3 text-sm leading-relaxed text-ink-soft">{item.answer}</p></details>)}</div>
-      </Container>
-    </section>
-
     <section class="bg-primary py-14 text-center sm:py-20"><Container class="max-w-3xl">
       <h2 class="font-serif text-3xl leading-tight text-surface sm:text-4xl">{page.finalTitle}</h2><p class="mx-auto mt-4 max-w-2xl leading-relaxed text-surface/80">{page.finalBody}</p>
       <div class="mt-7"><Button href={getWhatsAppUrl(page.whatsappMessage)} target="_blank" size="lg" class="w-full bg-accent-soft text-primary hover:bg-surface sm:w-auto" data-cro-cta {...trackingAttrs} data-ubicacion="final"><MessageCircle class="h-5 w-5" aria-hidden="true" />{page.primaryCta}</Button></div>
     </Container></section>
+
+    <section class="border-t border-border bg-surface-alt py-14 sm:py-18">
+      <Container class="max-w-3xl"><h2 class="font-serif text-3xl text-primary sm:text-4xl">Preguntas frecuentes</h2>
+        <div class="mt-7 divide-y divide-border border-y border-border">{page.faq.map((item) => <details class="group py-4"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-primary marker:content-none"><span>{item.question}</span><ChevronDown class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-180" aria-hidden="true" /></summary><p class="max-w-[68ch] pt-3 text-sm leading-relaxed text-ink-soft">{item.answer}</p></details>)}</div>
+      </Container>
+    </section>
   </article>
   <MobileWhatsAppBar message={page.whatsappMessage} label={page.shortCta} landingId={page.landingId} intent={page.intent} messageVariant={page.messageVariant} />
   <DesktopWhatsAppFloat message={page.whatsappMessage} label={page.shortCta} landingId={page.landingId} intent={page.intent} messageVariant={page.messageVariant} />
